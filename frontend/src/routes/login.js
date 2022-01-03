@@ -1,36 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Form, Button } from 'react-bootstrap';
 import '../App.css';
 
 export default function Login() {
     return (
-        <div className="centered">
-            <h1>Login Route</h1>
+        <div>
+            <Container>
+                <h1>Login</h1>
 
-            <form>
-                <div>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Name"
-                    />
-                </div>
+                <Form>
+                    <Form.Group className="mb-3" controlId="formUsername">
+                        <Form.Control size="lg" type="text" placeholder="Username" name="username" />
+                    </Form.Group>
 
-                <div>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                    />
-                </div>
+                    <Form.Group className="mb-3" controlId="formPassword">
+                        <Form.Control size="lg" type="password" placeholder="Password" name="password" />
+                    </Form.Group>
 
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-            <Link to="/">Back to home page</Link>
+                    <Button type="submit" variant="primary">Submit</Button>
+                </Form>
+
+                <p>Don't already have an account? <Link to="/register">Register here!</Link></p>
+                <Link to="/">Back to home page</Link>
+            </Container>
         </div>
+
+
     );
 }

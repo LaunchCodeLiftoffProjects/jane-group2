@@ -7,6 +7,7 @@ import App from './App';
 import Login from './routes/login';
 import BoxPage from './routes/boxPage';
 import reportWebVitals from './reportWebVitals';
+import Register from './routes/register';
 
 render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ render(
       <Route path="/" element={<App />}>
         <Route index element={<BoxPage />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Route>
     </Routes>
   </BrowserRouter>,
