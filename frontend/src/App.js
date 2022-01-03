@@ -1,34 +1,32 @@
-import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import './App.css';
 
 export default function App() {
-    const [msg, setMsg] = useState("Loading...");
-
-    useState(() => {
-        fetch('/api/test')
-            .then(response => response.text())
-            .then(message => {
-                setMsg(message);
-            });
-    });
 
     return (
         <div className='centered'>
             <header>
-                <h1>{msg}</h1>
-                <h1>Piece of Mind</h1>
+                <div className="header-top">
+                    <Link to="/" style={{
+                        textDecoration: "none",
+                        color: "black"
+                    }}>
+                        <h1>Piece of Mind</h1>
+                    </Link>
 
-                <nav>
-                    <Link to="/login">Login</Link>
-                </nav>
-
-                <hr style={{
-                    border: "0",
-                    height: "1px",
-                    backgroundImage: "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))"
-                }} />
+                    <nav style={{
+                        alignSelf: "center"
+                    }}>
+                        <Link to="/login">Login</Link>
+                    </nav>
+                </div>
             </header>
+            <hr style={{
+                border: "0",
+                height: "1px",
+                backgroundImage: "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))"
+            }} />
             <Outlet />
         </div>
     );
