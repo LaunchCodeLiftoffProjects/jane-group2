@@ -4,10 +4,9 @@ import React, {
 } from 'react';
 import {
     useNavigate,
-    Outlet,
-    Link
+    Outlet
 } from 'react-router-dom';
-import { Container, Navbar, NavbarBrand, NavItem, NavLink, Button } from 'react-bootstrap';
+import { Container, Navbar, NavbarBrand, NavLink, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
 import { authService } from "./util/auth"
@@ -15,7 +14,7 @@ import { authService } from "./util/auth"
 export default function App() {
     const navigate = useNavigate();
 
-    const [ user, setUser ] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         let subscription = authService.currentUser.subscribe((user) => {
