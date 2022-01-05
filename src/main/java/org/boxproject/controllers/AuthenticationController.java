@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 public class AuthenticationController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     private static final String userSessionKey = "user";
 }
