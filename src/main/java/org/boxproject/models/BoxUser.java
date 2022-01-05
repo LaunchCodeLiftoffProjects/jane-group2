@@ -7,10 +7,8 @@ import javax.persistence.Entity;
 
 @Entity
 public class User extends AbstractEntity {
-
     @NotNull
     private String username;
-
     @NotNull
     private String encryptedPassword;
 
@@ -30,5 +28,4 @@ public class User extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, encryptedPassword);
     }
-
 }
