@@ -8,11 +8,8 @@ import Login from './routes/login';
 import BoxList from './routes/boxList';
 import reportWebVitals from './reportWebVitals';
 import Register from './routes/register';
-<<<<<<< HEAD
 import BoxDisplay from './routes/boxDisplay';
-=======
 import TestAuth from "./routes/testAuthPage";
->>>>>>> 2a21dfbdd43a93a48b01a17598acdf5f7c9b8c0b
 
 render(
   <BrowserRouter>
@@ -21,11 +18,8 @@ render(
         <Route index element={<BoxList />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-<<<<<<< HEAD
         <Route path="boxDisplay" element={<BoxDisplay />} />
-=======
         <Route path="testAuth" element={<TestAuth />} />
->>>>>>> 2a21dfbdd43a93a48b01a17598acdf5f7c9b8c0b
       </Route>
     </Routes>
   </BrowserRouter>,
