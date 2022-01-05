@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<BoxUser, Long> {
+public interface BoxUserRepository extends CrudRepository<BoxUser, Long> {
     BoxUser findByUsername(String username);
 
     /*

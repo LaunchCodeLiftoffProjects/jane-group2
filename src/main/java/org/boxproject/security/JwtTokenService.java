@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 @Component
-public class UserService {
+public class JwtTokenService {
     @Value("${security.jwt.token.secret:none}")
     private String secret = "secret";
     @Value("${security.jwt.token-expiry:1440}")

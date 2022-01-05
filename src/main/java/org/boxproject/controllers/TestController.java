@@ -19,4 +19,10 @@ public class TestController {
     public String test() {
         return strings[random.nextInt(strings.length)];
     }
+
+    // non whitelisted mapping to test authorization
+    @GetMapping("/api/testWithAuth")
+    public String testAuthorized() {
+        return strings[random.nextInt(strings.length)];
+    }
 }
