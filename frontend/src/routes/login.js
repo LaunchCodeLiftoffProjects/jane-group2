@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
+
 import '../App.css';
 
 export default function Login() {
@@ -21,7 +22,8 @@ export default function Login() {
                     <Button type="submit" variant="primary">Submit</Button>
                 </Form>
 
-                <p>Don't already have an account? <Link to="/register">Register here!</Link></p>
+                <p>"Don't already have an account?" <Link to="/register">Register here!</Link></p>
+                <p>"Forgot Password?" <Link to="/forgot">Reset Password</Link></p>
                 <Link to="/">Back to home page</Link>
             </Container>
         </div>
