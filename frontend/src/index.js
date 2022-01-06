@@ -8,7 +8,7 @@ import Login from './routes/login';
 import BoxPage from './routes/boxPage';
 import reportWebVitals from './reportWebVitals';
 import Register from './routes/register';
-import Forgot from './routes/forgot';
+import TestAuth from "./routes/testAuthPage";
 
 render(
   <BrowserRouter>
@@ -17,7 +17,7 @@ render(
         <Route index element={<BoxPage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="forgot" element={<Forgot />} />
+        <Route path="testAuth" element={<TestAuth />} />
       </Route>
     </Routes>
   </BrowserRouter>,

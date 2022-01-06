@@ -4,8 +4,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 
 export default function forgot(){
 
-const handleSubmit = e => {
-    e.preventDefault();
+
 
 
 };
