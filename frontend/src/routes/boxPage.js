@@ -3,11 +3,12 @@ import React, {
     useState
 } from 'react';
 import '../App.css';
-import {authService} from "../util/auth";
+import { authService } from "../util/auth";
+import BoxList from '../components/boxList';
 
 // TODO: rename to Home page
 export default function BoxPage() {
-    const [ user, setUser ] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         let subscription = authService.currentUser.subscribe((user) => {
@@ -30,8 +31,12 @@ export default function BoxPage() {
                 <h4>Login to see your boxes!</h4>
             }
             {user &&
-                <h4>Welcome {user.username}!</h4>
+                <div>
+                    <h4>Welcome {user.username}!</h4>
+                    <BoxList />
+                </div>
             }
+
         </div>
     );
 }
