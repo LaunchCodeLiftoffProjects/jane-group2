@@ -1,21 +1,21 @@
 import React, {
     useState
 } from 'react';
-import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import { authService } from '../util/auth';
 import '../App.css';
 import {
+    Link,
     useNavigate,
     useLocation,
-  } from "react-router-dom";
+} from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [ username, setUsername ] = useState("");
-    const [ password, setPassword ] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     let from = location.state?.from?.pathname || "/";
 

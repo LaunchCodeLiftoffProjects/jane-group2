@@ -10,6 +10,7 @@ import { Container, Navbar, NavbarBrand, NavLink, Button } from 'react-bootstrap
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
 import { authService } from "./util/auth"
+import Search from "./search";
 
 export default function App() {
     const navigate = useNavigate();
@@ -44,9 +45,12 @@ export default function App() {
                             </LinkContainer>
                             {!user &&
                                 // if we are not logged in
-                                <div>
+                                <div className="d-flex">
                                     <LinkContainer to="/login">
                                         <NavLink className="text-dark" to="/login">Login</NavLink>
+                                    </LinkContainer>
+                                    <LinkContainer to="/register">
+                                        <NavLink className="text-dark" to="/register">Register</NavLink>
                                     </LinkContainer>
                                 </div>
                             }
@@ -68,7 +72,16 @@ export default function App() {
                     </Container>
                 </Navbar>
             </header>
+            <hr
+              style={{
+                border: "0",
+                height: "1px",
+                backgroundImage:
+                  "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))",
+              }}
+            />
+            <Search />
             <Outlet />
         </div>
-    );
+    }
 }
