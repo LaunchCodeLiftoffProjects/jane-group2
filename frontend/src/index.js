@@ -10,6 +10,8 @@ import reportWebVitals from './reportWebVitals';
 import Register from './routes/register';
 import BoxDisplay from './routes/boxDisplay';
 import TestAuth from "./routes/testAuthPage";
+import Category from './components/category';
+import Forgot from './routes/forgot'
 
 render(
   <BrowserRouter>
@@ -20,6 +22,8 @@ render(
         <Route path="register" element={<Register />} />
         <Route path="boxDisplay" element={<BoxDisplay />} />
         <Route path="testAuth" element={<TestAuth />} />
+        <Route path="forgot" element={<Forgot />} />
+        <Route path="category" element={<Category />} />
       </Route>
     </Routes>
   </BrowserRouter>,

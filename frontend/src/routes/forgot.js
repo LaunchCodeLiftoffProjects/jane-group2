@@ -7,7 +7,7 @@ export default function forgot(){
 
 
 
-};
+
  return (
         <div>
             <Container>
@@ -30,4 +30,4 @@ export default function forgot(){
 
 
     );
-}
+ }
