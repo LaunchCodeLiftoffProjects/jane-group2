@@ -28,6 +28,26 @@ export async function getAllBoxes() {
 
 }
 
+export function getBoxById(boxId) {
+
+    try {
+        return fetch(`/api/boxes/${boxId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                return json;
+            });
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
 export async function createBox(data) {
 
     try {
@@ -46,4 +66,40 @@ export async function createBox(data) {
         console.log(error);
     }
 
+}
+
+export async function editBox(boxId, data) {
+    try {
+        return await fetch(`/api/boxes/${boxId}/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return authService.evaluate(response);
+            });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function deleteBox(boxId) {
+    try {
+        return await fetch(`/api/boxes/${boxId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => {
+                console.log('Box deleted!');
+                return authService.evaluate(response);
+            });
+    } catch (error) {
+        console.log(error);
+    }
 }
