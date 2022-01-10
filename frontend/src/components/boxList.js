@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
-import { v4 as uuidv4 } from 'uuid';
 import { createBox, getAllBoxes } from '../services/boxService';
 
 export default function BoxList() {
@@ -17,27 +16,29 @@ export default function BoxList() {
             setBoxList(await getAllBoxes());
         }
         setBoxes();
-    })
+    });
 
     const handleChange = event => {
         setLabelName(event.target.value);
-    }
+    };
 
-    const handleAdd = async () => {
-        setBoxList(await getAllBoxes());
+    const handleAdd = async (event) => {
+
+        event.preventDefault();
 
         createBox({ labelName });
-
+        setBoxList(await getAllBoxes());
         setLabelName('');
-    }
+
+    };
 
 
 
     return (
         <div className="centered">
-            <form>
+            <form onSubmit={handleAdd}>
                 <input type="text" value={labelName} onChange={handleChange} />
-                <button type="button" onClick={handleAdd}>Add</button>
+                <button type="submit" onClick={handleAdd}>Add</button>
             </form>
 
             <ul>
@@ -45,7 +46,7 @@ export default function BoxList() {
                     <li style={{ listStyle: "none" }} key={box.id}>
                         <Link
                             to={{
-                                pathname: '/boxDisplay',
+                                pathname: `/boxDisplay/${box.id}`,
                                 state: { labelName }
                             }}
                         >
