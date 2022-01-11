@@ -1,5 +1,8 @@
 package org.boxproject.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -7,19 +10,13 @@ import javax.validation.constraints.NotNull;
 public class Box extends AbstractEntity {
 
     @NotNull
+    @Getter
+    @Setter
     private String labelName;
 
     public Box() {}
 
     public Box(String labelName) {
-        this.labelName = labelName;
-    }
-
-    public String getLabelName() {
-        return labelName;
-    }
-
-    public void setLabelName(String labelName) {
         this.labelName = labelName;
     }
 }

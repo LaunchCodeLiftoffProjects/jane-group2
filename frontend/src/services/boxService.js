@@ -1,8 +1,26 @@
+import { authService } from "../util/auth";
+
 export async function getAllBoxes() {
 
     try {
-        const response = await fetch('/api/boxes');
-        return await response.json();
+        return await fetch('/api/boxes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                let boxes = [];
+                for (let box of json) {
+                    boxes.push({
+                        "id": box.id,
+                        "labelName": box.labelName
+                    });
+                }
+                return boxes;
+            });
     } catch (error) {
         console.error(error);
         return [];
@@ -10,18 +28,78 @@ export async function getAllBoxes() {
 
 }
 
+export function getBoxById(boxId) {
+
+    try {
+        return fetch(`/api/boxes/${boxId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                return json;
+            });
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
 export async function createBox(data) {
 
     try {
-        console.log(data);
-        const response = await fetch(`http://localhost:8080/api/boxes`, {
+        return await fetch(`/api/boxes`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            },
             body: JSON.stringify(data)
-        });
-        return response.json();
+        })
+            .then(response => {
+                return authService.evaluate(response);
+            });
     } catch (error) {
         console.log(error);
     }
 
+}
+
+export async function editBox(boxId, data) {
+    try {
+        return await fetch(`/api/boxes/${boxId}/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return authService.evaluate(response);
+            });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function deleteBox(boxId) {
+    try {
+        return await fetch(`/api/boxes/${boxId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => {
+                console.log('Box deleted!');
+                return authService.evaluate(response);
+            });
+    } catch (error) {
+        console.log(error);
+    }
 }

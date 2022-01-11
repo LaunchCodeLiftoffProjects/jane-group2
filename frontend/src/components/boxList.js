@@ -1,59 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
-import BoxDisplay from './boxDisplay';
-import { v4 as uuidv4 } from 'uuid';
 import { createBox, getAllBoxes } from '../services/boxService';
 
 export default function BoxList() {
 
-    // Boxes are appended to a list by clicking on a create box button. 
+    // Boxes are appended to a list by clicking on an add button. 
     // Each box should be a button that links to it's own route through an ID.
 
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
-    const myBoxes = async () => {
-        const boxes = await getAllBoxes;
-        console.log(boxes);
-    }
+    useEffect(() => {
+        async function setBoxes() {
+            setBoxList(await getAllBoxes());
+        }
+        setBoxes();
+    });
 
     const handleChange = event => {
         setLabelName(event.target.value);
-    }
+    };
 
-    const handleAdd = () => {
-        myBoxes();
-        const newBoxList = boxList.concat({ labelName, id: uuidv4() });
+    const handleAdd = async (event) => {
 
-        setBoxList(newBoxList);
+        event.preventDefault();
 
         createBox({ labelName });
-
+        setBoxList(await getAllBoxes());
         setLabelName('');
-    }
+
+    };
 
 
 
     return (
         <div className="centered">
-            <h1>BoxPage Route aka Index</h1>
-
-            <h4>Login to see your boxes!</h4>
-            <div>
+            <form onSubmit={handleAdd}>
                 <input type="text" value={labelName} onChange={handleChange} />
-                <button type="button" onClick={handleAdd}>Add</button>
-            </div>
+                <button type="submit" onClick={handleAdd}>Add</button>
+            </form>
 
             <ul>
                 {boxList.map(box => (
-                    <li style={{ listStyle: "none" }}>
+                    <li style={{ listStyle: "none" }} key={box.id}>
                         <Link
                             to={{
-                                pathname: '/boxDisplay',
+                                pathname: `/boxDisplay/${box.id}`,
                                 state: { labelName }
                             }}
-                            key={box.id}
                         >
                             {box.labelName}
                         </Link>
