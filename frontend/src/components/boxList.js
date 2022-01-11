@@ -16,23 +16,23 @@ export default function BoxList() {
             setBoxList(await getAllBoxes());
         }
         setBoxes();
-    });
+    }, []);
 
     const handleChange = event => {
         setLabelName(event.target.value);
     };
 
     const handleAdd = async (event) => {
-
         event.preventDefault();
 
-        createBox({ labelName });
-        setBoxList(await getAllBoxes());
-        setLabelName('');
-
+        createBox({ labelName }).then(response => {
+            async function updateBoxList() {
+                setBoxList(await getAllBoxes());
+            }
+            updateBoxList();
+            setLabelName('');
+        });
     };
-
-
 
     return (
         <div className="centered">
