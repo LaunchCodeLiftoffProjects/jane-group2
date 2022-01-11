@@ -22,8 +22,8 @@ public class BoxController {
     }
 
     @GetMapping("{boxId}")
-    public Optional<Box> displayBoxDetails(@PathVariable String boxId) {
-        return boxRepository.findById(Long.parseLong(boxId));
+    public Optional<Box> displayBoxDetails(@PathVariable Long boxId) {
+        return boxRepository.findById(boxId);
     }
 
     @PostMapping
@@ -35,10 +35,9 @@ public class BoxController {
     }
 
     @PutMapping("{boxId}/edit")
-    public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable String boxId, @RequestBody BoxDTO payload) {
-        System.out.println("Updated!");
+    public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) {
 
-        Optional<Box> updateBox = boxRepository.findById(Long.parseLong(boxId))
+        Optional<Box> updateBox = boxRepository.findById(boxId)
                 .map(box -> {
                     box.setLabelName(payload.getLabelName());
                     return boxRepository.save(box);
