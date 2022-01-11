@@ -2,6 +2,7 @@ package org.boxproject.controllers;
 
 import org.boxproject.models.BoxUser;
 import org.boxproject.models.LoginResponse;
+import org.boxproject.models.LoginResponseUser;
 import org.boxproject.models.data.BoxUserRepository;
 import org.boxproject.models.dto.LoginFormDTO;
 import org.boxproject.models.dto.RegisterFormDTO;
@@ -71,6 +72,6 @@ public class UserController {
 
         System.out.println("Auth success! Token: " + token);
 
-        return ResponseEntity.ok(new LoginResponse(true, "Login successful", new LoginResponse.User(userDetails.getUsername(), token)));
+        return ResponseEntity.ok(new LoginResponse(true, "Login successful", new LoginResponseUser(userDetails.getUsername(), token)));
     }
 }
