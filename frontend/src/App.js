@@ -84,4 +84,5 @@ export default function App() {
             <Outlet />
         </div>
     );
+
 }
