@@ -1,13 +1,3 @@
-.centered {
-  text-align: center;
-}
-
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  margin: auto 20px;
-}
-
 body {
   background-color: #7ba7ff;
   color: rgb(0, 0, 0);
@@ -24,4 +14,24 @@ body {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  margin: auto 20px;
+}
+
+#labelName {
+  align-self: center;
+  width: 20%;
+}
+
+#submitBtn {
+  align-self: center;
+  width: 100px;
 }
