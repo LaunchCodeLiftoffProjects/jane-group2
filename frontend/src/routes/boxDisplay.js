@@ -33,11 +33,12 @@ export default function BoxDisplay() {
                 <h2>Items: </h2>
             </div>
 
-            <div className='d-flex flex-column'>
+            <div className='d-flex justify-content-center align-items-center'>
                 <Link to={`/boxDisplay/${boxId}/edit`}><button>Edit Box Details</button></Link>
-                <button onClick={boxDeletion}>Delete Box</button>
-                <Link to="/">Back to home page</Link>
+                <button className="m-2" id="deleteBtn" onClick={boxDeletion}>Delete Box</button>
             </div>
+
+            <Link to="/">Back to home page</Link>
 
         </div>
     );

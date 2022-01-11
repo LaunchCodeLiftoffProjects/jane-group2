@@ -73,15 +73,15 @@ export default function App() {
                 </Navbar>
             </header>
             <hr
-              style={{
-                border: "0",
-                height: "1px",
-                backgroundImage:
-                  "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))",
-              }}
+                style={{
+                    border: "0",
+                    height: "1px",
+                    backgroundImage:
+                        "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))",
+                }}
             />
             <Search />
             <Outlet />
         </div>
-    }
+    );
 }
