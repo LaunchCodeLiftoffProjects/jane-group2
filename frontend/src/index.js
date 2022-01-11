@@ -10,7 +10,9 @@ import BoxPage from './routes/boxPage';
 import reportWebVitals from './reportWebVitals';
 import Register from './routes/register';
 import BoxDisplay from './routes/boxDisplay';
-import TestAuth from './routes/testAuthPage';
+import TestAuth from "./routes/testAuthPage";
+import Category from './components/category';
+import Forgot from './routes/forgot'
 import EditBoxDetails from './routes/editBoxDetails';
 
 render(
@@ -23,6 +25,8 @@ render(
         <Route path="boxDisplay/:boxId" element={<BoxDisplay />} />
         <Route path="boxDisplay/:boxId/edit" element={<EditBoxDetails />} />
         <Route path="testAuth" element={<TestAuth />} />
+        <Route path="forgot" element={<Forgot />} />
+        <Route path="category" element={<Category />} />
       </Route>
     </Routes>
   </BrowserRouter>,
