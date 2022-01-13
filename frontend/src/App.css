@@ -1,34 +1,40 @@
 body {
-  background-color: #7ba7ff;
-  color: rgb(0, 0, 0);
-  padding: 20px;
-  font-family: Arial;
-  text-align: center;
+    background-color: #7ba7ff;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    font-family: Arial;
+    text-align: center;
 }
 
 .visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }
 
 .centered {
-  text-align: center;
+    text-align: center;
 }
 
 .header-top {
-  display: flex;
-  justify-content: space-between;
-  margin: auto 20px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto 20px;
+}
+
+.form-group {
+  align-self: center;
+  width: 100px;
+  padding: 5px;
 }
 
 #labelName {
-  align-self: center;
-  width: 20%;
+    align-self: center;
+    width: 20%;
 }
 
 #submitBtn {
@@ -36,7 +42,7 @@ body {
   width: 100px;
 }
 
-.form-group {
-  padding: 5px;
+#deleteBtn {
   align-self: center;
+  width: 100px;
 }
