@@ -9,7 +9,7 @@ import {
 import { Container, Navbar, NavbarBrand, NavLink, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
-import { authService } from "./util/auth"
+import { authService } from "./services/auth"
 import Search from "./search";
 
 export default function App() {

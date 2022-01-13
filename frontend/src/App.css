@@ -35,3 +35,8 @@ body {
   align-self: center;
   width: 100px;
 }
+
+.form-group {
+  padding: 5px;
+  align-self: center;
+}

@@ -3,12 +3,14 @@ package org.boxproject.controllers;
 import org.boxproject.models.BoxUser;
 import org.boxproject.models.LoginResponse;
 import org.boxproject.models.LoginResponseUser;
+import org.boxproject.models.RegistrationResponse;
 import org.boxproject.models.data.BoxUserRepository;
 import org.boxproject.models.dto.LoginFormDTO;
 import org.boxproject.models.dto.RegisterFormDTO;
 import org.boxproject.security.JwtUserDetailsService;
 import org.boxproject.security.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
+    private static final int minUsernameLength = 4;
+    private static final int maxUsernameLength = 32;
+
+    private static final int minPasswordLength = 4;
+    private static final int maxPasswordLength = 32;
+
     @Autowired
     public BoxUserRepository userRepository;
     @Autowired
@@ -35,22 +43,38 @@ public class UserController {
     public PasswordEncoder passwordEncoder;
 
     @PostMapping("/api/register")
-    public String register(@RequestBody RegisterFormDTO dto) {
+    public ResponseEntity<RegistrationResponse> register(@RequestBody RegisterFormDTO dto) {
         // must be posted as application/json
 
         System.out.println(String.format("Register Request [user: %s, pass: %s, verify password: %s]", dto.getUsername(), dto.getPassword(), dto.getVerifyPassword()));
 
-        // TODO: proper error response
-
-        if (!dto.getPassword().equals(dto.getVerifyPassword())) {
-            return "NOK";
+        if (userRepository.findByUsername(dto.getUsername()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Username is already taken."));
         }
 
-        BoxUser user = new BoxUser(dto.getUsername(), passwordEncoder.encode(dto.getPassword()));
+        if (dto.getUsername().length() < minUsernameLength) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Username is too short."));
+        }
 
-        userRepository.save(user);
+        if (dto.getPassword().length() < minPasswordLength) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Password is too short."));
+        }
 
-        return "OK";
+        if (dto.getUsername().length() > maxUsernameLength) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Username is too long."));
+        }
+
+        if (dto.getPassword().length() > maxPasswordLength) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Password is too long."));
+        }
+
+        if (!dto.getPassword().equals(dto.getVerifyPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Passwords do not match."));
+        }
+
+        userRepository.save(new BoxUser(dto.getUsername(), passwordEncoder.encode(dto.getPassword())));
+
+        return ResponseEntity.ok(new RegistrationResponse("Registration successful!"));
     }
 
     @PostMapping("/api/auth")
@@ -62,9 +86,9 @@ public class UserController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
         } catch (DisabledException e) {
-            return ResponseEntity.ok(new LoginResponse(false, "Your account has been disabled.", null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new LoginResponse("Your account has been disabled.", null));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.ok(new LoginResponse(false, "Invalid credentials.", null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new LoginResponse("Invalid credentials.", null));
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getUsername());
@@ -72,6 +96,6 @@ public class UserController {
 
         System.out.println("Auth success! Token: " + token);
 
-        return ResponseEntity.ok(new LoginResponse(true, "Login successful", new LoginResponseUser(userDetails.getUsername(), token)));
+        return ResponseEntity.ok(new LoginResponse("Login successful!", new LoginResponseUser(userDetails.getUsername(), token)));
     }
 }
