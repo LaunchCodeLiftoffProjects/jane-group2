@@ -26,17 +26,23 @@ body {
     margin: auto 20px;
 }
 
+.form-group {
+  align-self: center;
+  width: 100px;
+  padding: 5px;
+}
+
 #labelName {
     align-self: center;
     width: 20%;
 }
 
 #submitBtn {
-    align-self: center;
-    width: 100px;
+  align-self: center;
+  width: 100px;
 }
 
 #deleteBtn {
-    align-self: center;
-    width: 100px;
+  align-self: center;
+  width: 100px;
 }

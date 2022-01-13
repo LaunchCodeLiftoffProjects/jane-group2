@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('box-project-user')));
 
 export const authService = {
+    register,
     login,
     logout,
     header,
@@ -13,8 +14,25 @@ export const authService = {
     }
 };
 
+function register(username, password, verifyPassword) {
+    return fetch("api/register", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            verifyPassword: verifyPassword,
+        })
+    })
+    .then(evaluate)
+    //.then(response => response.json())
+    .then(success => {
+        console.log('got ' + success);
+        return success;
+    });
+}
+
 function login(username, password) {
-    console.log("login()");
     return fetch("api/auth", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -23,16 +41,17 @@ function login(username, password) {
             password: password
         })
     })
-    .then(response => response.json())
-    .then(json => {
-        console.log('success: ' + json.success);
-        console.log('username: ' + json.user.username);
-        console.log('token: ' + json.user.token);
+    .then(evaluate)
+    //.then(response => response.json())
+    .then(success => {
+        console.log('msg: ' + success.message);
+        console.log('username: ' + success.user.username);
+        console.log('token: ' + success.user.token);
 
-        localStorage.setItem('box-project-user', JSON.stringify(json.user));
-        currentUserSubject.next(json.user);
+        localStorage.setItem('box-project-user', JSON.stringify(success.user));
+        currentUserSubject.next(success.user);
 
-        return json;
+        return success;
     });
 }
 
@@ -52,8 +71,10 @@ function header() {
 
 function evaluate(response) {
     return response.text().then(text => {
+        const json = text && JSON.parse(text);
+
         if (response.ok) {
-            return text;
+            return json;
         }
 
         if ([401, 403].indexOf(response.status) !== -1) {
@@ -63,6 +84,6 @@ function evaluate(response) {
             console.log("not authorized!");
         }
 
-        return Promise.reject(response.statusText);
+        return Promise.reject((json && json.message) || response.statusText);
     });
 }

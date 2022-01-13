@@ -11,11 +11,12 @@ export default function BoxList() {
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
+    async function updateBoxList() {
+        setBoxList(await getAllBoxes());
+    }
+
     useEffect(() => {
-        async function setBoxes() {
-            setBoxList(await getAllBoxes());
-        }
-        setBoxes();
+        updateBoxList();
     }, []);
 
     const handleChange = event => {
@@ -26,11 +27,8 @@ export default function BoxList() {
         event.preventDefault();
 
         createBox({ labelName }).then(response => {
-            async function updateBoxList() {
-                setBoxList(await getAllBoxes());
-            }
-            updateBoxList();
             setLabelName('');
+            updateBoxList();
         });
     };
 
