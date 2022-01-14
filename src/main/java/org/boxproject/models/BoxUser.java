@@ -14,16 +14,19 @@ import java.util.List;
 
 @Entity
 public class BoxUser extends AbstractEntity implements UserDetails {
+
     @NotNull
     @Getter
     private String username;
+
     @NotNull
     @Getter
     private String password;
 
+    @Getter
     @OneToMany
-    @JoinColumn(name = "box_id")
-    private List<Box> boxes = new ArrayList<>();
+    @JoinColumn(name = "box_user_id")
+    private final List<Box> boxes = new ArrayList<>();
 
     public BoxUser() {}
 
