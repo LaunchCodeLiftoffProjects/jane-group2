@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import {
+<<<<<<< HEAD
   Container,
   Navbar,
   NavbarBrand,
@@ -10,6 +11,15 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import "./App.css";
 import { authService } from "./util/auth";
+=======
+    useNavigate,
+    Outlet
+} from 'react-router-dom';
+import { Container, Navbar, NavbarBrand, NavLink, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap'
+import './App.css';
+import { authService } from "./services/auth"
+>>>>>>> adf8d4dc140cdc48a6f9840475e0f82b150d89d7
 import Search from "./search";
 
 export default function App() {

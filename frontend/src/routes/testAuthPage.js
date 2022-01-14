@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import '../App.css';
 
-import { authService } from '../util/auth';
+import { authService } from '../services/auth';
 
 export default function TestAuth() {
     const [ text, setText ] = useState(null);

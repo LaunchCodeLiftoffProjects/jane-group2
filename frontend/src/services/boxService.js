@@ -1,4 +1,4 @@
-import { authService } from "../util/auth";
+import { authService } from "../services/auth";
 
 export async function getAllBoxes() {
 

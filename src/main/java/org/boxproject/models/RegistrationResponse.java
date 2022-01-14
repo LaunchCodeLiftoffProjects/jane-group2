@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class RegisterResponse {
+public class RegistrationResponse {
     @Getter
-    private boolean success;
-    @Getter
-    private String message;
+    private final String message;
 }

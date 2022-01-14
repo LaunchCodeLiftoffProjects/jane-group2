@@ -1,74 +1,84 @@
 import React, {
     useState
 } from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { authService } from '../services/auth';
+import {
+    Link,
+    useNavigate,
+    useLocation,
+} from "react-router-dom";
+import * as Yup from 'yup';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import '../App.css';
 
 export default function Register() {
-    const [ username, setUsername ] = useState("");
-    const [ password, setPassword ] = useState("");
-    const [ verifyPassword, setVerifyPassword ] = useState("");
-
-    const submit = (e) => {
-        e.preventDefault();
-        console.log('user: ' + username);
-        console.log('pass: ' + password);
-        fetch("api/register", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-                verifyPassword: verifyPassword,
-            })
-        }).then(response => {
-            // TODO: use this response
-            console.log('got ' + response.json());
-        });
-    }
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <div className="centered">
             <Container>
                 <h1>Register</h1>
+                <Formik
+                    initialValues={{
+                        username: '',
+                        password: ''
+                    }}
+                    validationSchema={Yup.object().shape({
+                        username: Yup.string()
+                            .required('Username is required')
+                            .min(4, 'Username is too short, should be 4 characters minimum.'),
+                        password: Yup.string()
+                            .required('Password is required')
+                            .min(4, 'Password is too short, should be 4 characters minimum.'),
+                        verifyPassword: Yup.string()
+                            .oneOf([Yup.ref('password'), null], 'Passwords must match.'),
+                    })}
+                    onSubmit={({ username, password, verifyPassword }, { setStatus, setSubmitting }) => {
+                        setStatus();
 
-                <Form onSubmit={submit}>
-                    <Form.Group className="mb-3" controlId="formUsername">
-                        <Form.Control
-                            size="lg"
-                            type="text"
-                            placeholder="Username"
-                            name="username"
-                            value={username} onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </Form.Group>
+                        console.log('user: ' + username);
+                        console.log('pass: ' + password);
 
-                    <Form.Group className="mb-3" controlId="formPassword">
-                        <Form.Control
-                            size="lg"
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            value={password} onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formVerifyPassword">
-                        <Form.Control
-                            size="lg"
-                            type="password"
-                            placeholder="Verify Password"
-                            name="verifyPassword"
-                            value={verifyPassword} onChange={(e) => setVerifyPassword(e.target.value)}
-                        />
-                    </Form.Group>
-
-                    <Button type="submit" variant="primary">Submit</Button>
-                </Form>
+                        authService.register(username, password, verifyPassword).then(
+                            _ => {
+                                navigate('/login', { replace: true });
+                            },
+                            failure => {
+                                setSubmitting(false);
+                                setStatus(failure);
+                            }
+                        );
+                    }}
+                    render={({ errors, status, touched, isSubmitting }) => (
+                        <Form>
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
+                                <ErrorMessage name="username" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                                <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="verifyPassword">Verify Password</label>
+                                <Field name="verifyPassword" type="password" className={'form-control' + (errors.verifyPassword && touched.verifyPassword ? ' is-invalid' : '')} />
+                                <ErrorMessage name="verifyPassword" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button>
+                            </div>
+                            <div className="form-group">
+                                {status &&
+                                    <div className={'alert alert-danger'}>{status}</div>
+                                }
+                            </div>
+                        </Form>
+                    )}
+                />
                 <p>Already have an account? <Link to="/login">Login here!</Link></p>
                 <Link to="/">Back to home page</Link>
             </Container>
