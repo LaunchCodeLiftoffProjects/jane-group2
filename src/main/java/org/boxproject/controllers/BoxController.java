@@ -16,8 +16,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/boxes")
 public class BoxController {
+
     @Autowired
     private BoxUserRepository boxUserRepository;
+
     @Autowired
     private BoxRepository boxRepository;
 
