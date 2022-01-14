@@ -23,13 +23,13 @@ public class BoxController {
 
     @GetMapping
     public Iterable<Box> retrieveBoxes() throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            throw new Exception("User is not authorized!");
-        }
-        BoxUser boxUser = boxUserRepository.findByUsername(authentication.getName());
+        final BoxUser boxUser = getBoxUser();
         System.out.println("User: " + boxUser);
-        return boxRepository.findAll();
+        for(Box box : boxUser.getBoxes()) {
+            System.out.println("User owns box: " + box);
+        }
+        return boxUser.getBoxes();
+        //return boxRepository.findAll();
     }
 
     @GetMapping("{boxId}")
@@ -38,15 +38,19 @@ public class BoxController {
     }
 
     @PostMapping
-    public ResponseEntity<Box> processCreateBoxForm(@RequestBody BoxDTO payload) {
-        System.out.println("We got it");
-        Box newBox = new Box(payload.getLabelName());
+    public ResponseEntity<Box> processCreateBoxForm(@RequestBody BoxDTO payload) throws Exception {
+        final BoxUser boxUser = getBoxUser();
+
+        final Box newBox = new Box(payload.getLabelName());
+        newBox.setBoxUser(boxUser);
         boxRepository.save(newBox);
+
         return ResponseEntity.ok(newBox);
     }
 
     @PutMapping("{boxId}/edit")
-    public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) {
+    public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) throws Exception {
+        final BoxUser boxUser = getBoxUser();
 
         Optional<Box> updateBox = boxRepository.findById(boxId)
                 .map(box -> {
@@ -58,9 +62,18 @@ public class BoxController {
     }
 
     @DeleteMapping("{boxId}")
-    public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) {
+    public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
+        final BoxUser boxUser = getBoxUser();
+
         boxRepository.deleteById(boxId);
         return "Deleted";
     }
 
+    private BoxUser getBoxUser() throws Exception {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new Exception("User is not authorized!");
+        }
+        return boxUserRepository.findByUsername(authentication.getName());
+    }
 }
