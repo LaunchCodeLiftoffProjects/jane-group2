@@ -1,10 +1,14 @@
 package org.boxproject.controllers;
 
 import org.boxproject.models.Box;
+import org.boxproject.models.BoxUser;
 import org.boxproject.models.data.BoxRepository;
+import org.boxproject.models.data.BoxUserRepository;
 import org.boxproject.models.dto.BoxDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -12,12 +16,19 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/boxes")
 public class BoxController {
-
+    @Autowired
+    private BoxUserRepository boxUserRepository;
     @Autowired
     private BoxRepository boxRepository;
 
     @GetMapping
-    public Iterable<Box> retrieveBoxes() {
+    public Iterable<Box> retrieveBoxes() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new Exception("User is not authorized!");
+        }
+        BoxUser boxUser = boxUserRepository.findByUsername(authentication.getName());
+        System.out.println("User: " + boxUser);
         return boxRepository.findAll();
     }
 
