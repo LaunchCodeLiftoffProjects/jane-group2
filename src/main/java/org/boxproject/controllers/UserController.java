@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
+
     private static final int minUsernameLength = 4;
     private static final int maxUsernameLength = 32;
 
@@ -32,13 +33,16 @@ public class UserController {
 
     @Autowired
     public BoxUserRepository userRepository;
+
     @Autowired
     public JwtTokenService jwtTokenService;
 
     @Autowired
     public JwtUserDetailsService userDetailsService;
+
     @Autowired
     public AuthenticationManager authenticationManager;
+
     @Autowired
     public PasswordEncoder passwordEncoder;
 
