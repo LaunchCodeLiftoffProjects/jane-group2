@@ -26,7 +26,6 @@ export default function BoxDisplay() {
         <div>
             <h1>Box Display Route</h1>
 
-            {/* Thinking of a border around the bottom div below */}
             <div>
                 <h2>Box Id: {boxDetails.id}</h2>
                 <h2>Box Name: {boxDetails.labelName}</h2>

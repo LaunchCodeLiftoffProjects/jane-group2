@@ -20,9 +20,6 @@ export default function BoxPage() {
         };
     }, [user]);
 
-    // Boxes are appended to a list by clicking on a create box button. 
-    // Each box should be a button that links to it's own route through an ID.
-
     return (
         <div className="centered">
             <h1>BoxPage Route aka Index</h1>

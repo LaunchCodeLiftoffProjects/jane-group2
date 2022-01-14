@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -13,6 +14,10 @@ public class Box extends AbstractEntity {
     @Getter
     @Setter
     private String labelName;
+
+    @Getter
+    @ManyToOne
+    private BoxUser boxUser;
 
     public Box() {}
 
