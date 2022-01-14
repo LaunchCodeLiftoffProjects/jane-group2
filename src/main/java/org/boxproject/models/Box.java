@@ -1,5 +1,6 @@
 package org.boxproject.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,10 @@ public class Box extends AbstractEntity {
     @Setter
     private String labelName;
 
-    @Getter
     @ManyToOne
+    @Getter
+    @Setter
+    @JsonIgnore
     private BoxUser boxUser;
 
     public Box() {}
