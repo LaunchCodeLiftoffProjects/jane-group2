@@ -6,7 +6,6 @@ import '../App.css';
 import { authService } from "../services/auth";
 import BoxList from '../components/boxList';
 
-// TODO: rename to Home page
 export default function BoxPage() {
     const [user, setUser] = useState(null);
 

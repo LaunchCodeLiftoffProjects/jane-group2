@@ -1,6 +1,5 @@
 package org.boxproject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +26,7 @@ public class BoxUser extends AbstractEntity implements UserDetails {
     @Getter
     @OneToMany
     @JoinColumn(name = "box_user_id")
-    private List<Box> boxes = new ArrayList<>();
+    private final List<Box> boxes = new ArrayList<>();
 
     public BoxUser() {}
 
