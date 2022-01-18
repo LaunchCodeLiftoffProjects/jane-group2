@@ -48,17 +48,17 @@ export default function Login() {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <label htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                                 <ErrorMessage name="username" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <label htmlFor="password">Password</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
                             </div>
                             {status &&

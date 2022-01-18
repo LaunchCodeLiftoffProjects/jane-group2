@@ -84,7 +84,15 @@ public class BoxController {
     public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
         final BoxUser boxUser = getBoxUser();
 
-        boxRepository.deleteById(boxId);
+        final Optional<Box> boxOptional = boxRepository.findById(boxId);
+        if (boxOptional.isPresent()) {
+            final Box box = boxOptional.get();
+            for(BoxItem item : box.getBoxItems()) {
+                boxItemRepository.deleteById(item.getId());
+            }
+            boxRepository.deleteById(boxId);
+        }
+
         return "Box Deleted";
     }
 
