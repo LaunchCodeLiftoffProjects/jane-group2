@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { editBox, getBoxById } from '../services/boxService';
+import { addItemToBox, deleteBoxItem } from '../services/boxItemService';
 
 import '../App.css';
 
@@ -8,19 +9,38 @@ export default function EditBoxDetails() {
 
     const navigate = useNavigate();
     const { boxId } = useParams();
+
     const [labelName, setLabelName] = useState('');
+    const [boxItemName, setBoxItemName] = useState('');
+
     const [boxDetails, setBoxDetails] = useState({});
+    const [boxItems, setBoxItems] = useState([]);
+
+    async function displayEditPage() {
+        setBoxDetails(await getBoxById(boxId));
+        setLabelName(boxDetails.labelName);
+        setBoxItems(await getBoxById(boxId).then(box => box.boxItems));
+    }
 
     useEffect(() => {
-        async function setInfo() {
-            setBoxDetails(await getBoxById(boxId));
-            setLabelName(boxDetails.labelName);
-        }
-        setInfo();
-    }, [boxId]);
+        displayEditPage()
+    }, []);
 
-    const handleChange = event => {
+    const handleLabelNameChange = event => {
         setLabelName(event.target.value);
+    };
+
+    const handleBoxItemNameChange = event => {
+        setBoxItemName(event.target.value);
+    }
+
+    const handleAdd = async (event) => {
+        event.preventDefault();
+
+        addItemToBox(boxId, { boxItemName }).then(response => {
+            setBoxItemName('');
+            displayEditPage();
+        });
     };
 
     const submitUpdate = async (event) => {
@@ -34,16 +54,41 @@ export default function EditBoxDetails() {
             <h1>Edit Box Details</h1>
 
             <form className="d-flex flex-column">
-                <label for="labelName">Name:</label>
 
+                <label for="labelName">Name: </label>
                 <input
                     type="text"
                     name="labelName"
                     id="labelName"
                     value={labelName}
-                    onChange={handleChange} />
+                    onChange={handleLabelNameChange} />
 
-                <button id="submitBtn" onClick={submitUpdate}>Update Box</button>
+                <form onSubmit={handleAdd}>
+                    <input type="text" value={boxItemName} onChange={handleBoxItemNameChange} />
+                    <button type="submit" onClick={handleAdd}>Add Item</button>
+                </form>
+
+                <ul>
+                    {boxItems.map(item => (
+                        // TODO: create delete item method. Prevent default
+                        <li key={item.id}>
+                            {item.itemName}
+                            <button
+                                onClick={async (event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    const boxItemId = item.id;
+                                    const boxItemName = item.itemName;
+                                    await deleteBoxItem(boxId, { boxItemId, boxItemName });
+                                    await displayEditPage();
+                                }}>
+                                X
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+
+                <button className="m-1" id="submitBtn" onClick={submitUpdate}>Update Box</button>
             </form>
         </div>
     );
