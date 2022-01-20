@@ -17,6 +17,10 @@ public class BoxUser extends AbstractEntity implements UserDetails {
 
     @NotNull
     @Getter
+    private String email;
+
+    @NotNull
+    @Getter
     private String username;
 
     @NotNull
@@ -30,7 +34,8 @@ public class BoxUser extends AbstractEntity implements UserDetails {
 
     public BoxUser() {}
 
-    public BoxUser(String username, String password) {
+    public BoxUser(String email, String username, String password) {
+        this.email = email;
         this.username = username;
         this.password = password;
     }

@@ -26,22 +26,25 @@ export default function Register() {
                         password: ''
                     }}
                     validationSchema={Yup.object().shape({
+                        email: Yup.string()
+                            .required('Email is required.')
+                            .email('Must be a valid email.'),
                         username: Yup.string()
-                            .required('Username is required')
+                            .required('Username is required.')
                             .min(4, 'Username is too short, should be 4 characters minimum.'),
                         password: Yup.string()
-                            .required('Password is required')
+                            .required('Password is required.')
                             .min(4, 'Password is too short, should be 4 characters minimum.'),
                         verifyPassword: Yup.string()
                             .oneOf([Yup.ref('password'), null], 'Passwords must match.'),
                     })}
-                    onSubmit={({ username, password, verifyPassword }, { setStatus, setSubmitting }) => {
+                    onSubmit={({ email, username, password, verifyPassword }, { setStatus, setSubmitting }) => {
                         setStatus();
 
                         console.log('user: ' + username);
                         console.log('pass: ' + password);
 
-                        authService.register(username, password, verifyPassword).then(
+                        authService.register(email, username, password, verifyPassword).then(
                             _ => {
                                 navigate('/login', { replace: true });
                             },
@@ -53,6 +56,11 @@ export default function Register() {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
+                            <div className="form-auth-group">
+                                <label htmlFor="email">Email</label>
+                                <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                                <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                            </div>
                             <div className="form-auth-group">
                                 <label htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />

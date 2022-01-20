@@ -14,11 +14,12 @@ export const authService = {
     }
 };
 
-function register(username, password, verifyPassword) {
+function register(email, username, password, verifyPassword) {
     return fetch("api/register", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+            email: email,
             username: username,
             password: password,
             verifyPassword: verifyPassword,
