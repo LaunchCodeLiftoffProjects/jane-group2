@@ -41,7 +41,7 @@ export default function BoxList() {
 
             <ul>
                 {boxList.map(box => (
-                    <li style={{ listStyle: "none" }} key={box.id}>
+                    <li className="card" style={{ listStyle: "none", "background-color": box.labelColor }} key={box.id}>
                         <Link
                             to={{
                                 pathname: `/boxDisplay/${box.id}`,

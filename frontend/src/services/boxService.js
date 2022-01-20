@@ -16,7 +16,8 @@ export async function getAllBoxes() {
                 for (let box of json) {
                     boxes.push({
                         "id": box.id,
-                        "labelName": box.labelName
+                        "labelName": box.labelName,
+                        "labelColor": box.labelColor,
                     });
                 }
                 return boxes;
