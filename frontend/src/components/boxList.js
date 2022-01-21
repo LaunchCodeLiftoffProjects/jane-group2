@@ -36,7 +36,7 @@ export default function BoxList() {
         <div className="centered">
             <form onSubmit={handleAdd}>
                 <input type="text" value={labelName} onChange={handleChange} />
-                <button type="submit" onClick={handleAdd}>Add</button>
+                <button type="submit" onClick={handleAdd}>Add Box</button>
             </form>
 
             <ul>
