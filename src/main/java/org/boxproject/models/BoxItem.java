@@ -27,4 +27,8 @@ public class BoxItem extends AbstractEntity {
     public BoxItem(String itemName) {
         this.itemName = itemName;
     }
+
+public Object findAll() {
+        return null;
+}
 }
