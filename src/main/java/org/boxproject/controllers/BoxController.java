@@ -15,10 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/boxes")
 public class BoxController {
+    private static final Random random = new Random();
 
     @Autowired
     private BoxUserRepository boxUserRepository;
@@ -49,7 +51,9 @@ public class BoxController {
         final BoxUser boxUser = getBoxUser();
 
         final Box newBox = new Box(payload.getLabelName());
+
         newBox.setBoxUser(boxUser);
+        newBox.setLabelColor(generateRandomHexColor());
         boxRepository.save(newBox);
 
         return ResponseEntity.ok(newBox);
@@ -116,5 +120,12 @@ public class BoxController {
             throw new Exception("User is not authorized!");
         }
         return boxUserRepository.findByUsername(authentication.getName());
+    }
+
+    // TODO: bound these in a special range, or perhaps hand select colors and pop them from a queue before wrapping the queue
+    private String generateRandomHexColor() {
+        int rand_num = random.nextInt(0xffffff + 1);
+        // format it as hexadecimal string and print
+        return String.format("#%06x", rand_num);
     }
 }
