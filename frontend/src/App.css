@@ -32,6 +32,10 @@ body {
   padding: 5px;
 }
 
+.form-auth-group {
+  padding: 5px;
+}
+
 #labelName {
     align-self: center;
     width: 20%;

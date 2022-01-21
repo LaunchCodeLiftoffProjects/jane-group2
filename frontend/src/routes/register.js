@@ -53,25 +53,25 @@ export default function Register() {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <label htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                                 <ErrorMessage name="username" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <label htmlFor="password">Password</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <label htmlFor="verifyPassword">Verify Password</label>
                                 <Field name="verifyPassword" type="password" className={'form-control' + (errors.verifyPassword && touched.verifyPassword ? ' is-invalid' : '')} />
                                 <ErrorMessage name="verifyPassword" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button>
                             </div>
-                            <div className="form-group">
+                            <div className="form-auth-group">
                                 {status &&
                                     <div className={'alert alert-danger'}>{status}</div>
                                 }
