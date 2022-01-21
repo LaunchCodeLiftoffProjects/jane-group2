@@ -62,10 +62,11 @@ public class BoxController {
     // TODO
     @PostMapping("{boxId}/edit")
     public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+
         final Optional<Box> boxToAddItem = boxRepository.findById(boxId);
 
         final BoxItem newItem = new BoxItem(payload.getBoxItemName());
-        boxToAddItem.ifPresent(newItem::setBox);;
+        boxToAddItem.ifPresent(newItem::setBox);
         boxItemRepository.save(newItem);
 
         return ResponseEntity.ok(newItem);
@@ -73,6 +74,7 @@ public class BoxController {
 
     @PutMapping("{boxId}/edit")
     public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) throws Exception {
+
         final BoxUser boxUser = getBoxUser();
 
         Optional<Box> updateBox = boxRepository.findById(boxId)
@@ -86,14 +88,17 @@ public class BoxController {
 
     @DeleteMapping("{boxId}")
     public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
-        final BoxUser boxUser = getBoxUser();
 
+        final BoxUser boxUser = getBoxUser();
         final Optional<Box> boxOptional = boxRepository.findById(boxId);
+
         if (boxOptional.isPresent()) {
             final Box box = boxOptional.get();
+
             for(BoxItem item : box.getBoxItems()) {
                 boxItemRepository.deleteById(item.getId());
             }
+
             boxRepository.deleteById(boxId);
         }
 
@@ -102,8 +107,8 @@ public class BoxController {
 
     @DeleteMapping("{boxId}/edit")
     public @ResponseBody String processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+
         final BoxUser boxUser = getBoxUser();
-        System.out.println(payload.getBoxItemId() + " " + payload.getBoxItemName());
 
         boxItemRepository.deleteById(payload.getBoxItemId());
         return "Item Deleted";

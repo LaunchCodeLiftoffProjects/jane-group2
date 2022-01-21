@@ -70,16 +70,15 @@ export default function EditBoxDetails() {
 
                 <ul>
                     {boxItems.map(item => (
-                        // TODO: create delete item method. Prevent default
                         <li key={item.id}>
                             {item.itemName}
                             <button
                                 onClick={async (event) => {
                                     event.preventDefault();
                                     event.stopPropagation();
-                                    const boxItemId = item.id;
-                                    const boxItemName = item.itemName;
-                                    await deleteBoxItem(boxId, { boxItemId, boxItemName });
+                                    const deletedItemId = item.id;
+                                    const deletedItemName = item.itemName;
+                                    await deleteBoxItem(boxId, { deletedItemId, deletedItemName });
                                     await displayEditPage();
                                 }}>
                                 X
