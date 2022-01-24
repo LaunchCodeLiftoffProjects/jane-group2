@@ -12,7 +12,7 @@ public class BoxUserService {
     @Autowired
     public BoxUserRepository userRepository;
 
-    private BoxUser getBoxUser() throws Exception {
+    public BoxUser getBoxUser() throws Exception {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             throw new Exception("User is not authorized!");
