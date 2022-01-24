@@ -27,6 +27,10 @@ public class BoxUser extends AbstractEntity implements UserDetails {
     @Getter
     private String password;
 
+    @OneToMany
+    @Getter
+    private List <Category> categories= new ArrayList<>();
+
     @Getter
     @OneToMany
     @JoinColumn(name = "box_user_id")

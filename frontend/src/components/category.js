@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { authService } from "../services/auth";
+/*import createCategory from '../services/categoryService';*/
 
 
 
@@ -8,28 +8,10 @@ import { authService } from "../services/auth";
  
 export default function CategoryPage() {
 
-    const [categoryName, setCategoryName] = useState([])
+    const [categoryName, setCategoryName] = useState('')
     const [categories, setCategories] = useState([])
 
-    async function createCategory(data) {
-
-        try {
-            return await fetch(`/api/category`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': authService.header()
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    return authService.evaluate(response);
-                });
-        } catch (error) {
-            console.log(error);
-        }
     
-    }
 
    /* const filterResult=(catItem)=>{
         const result=categories.filter((curData)=>{
@@ -45,11 +27,11 @@ export default function CategoryPage() {
   const handleAdd =  (event) => {
     event.preventDefault()
 
-    createCategory({categoryName}).then(response =>{
+    /*createCategory({categoryName}).then(response =>{
         console.log(categories)
     }
 
-    )}
+)*/}
 
    
     

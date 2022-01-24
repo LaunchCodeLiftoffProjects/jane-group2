@@ -29,6 +29,11 @@ public class Box extends AbstractEntity {
     @JsonIgnore
     private BoxUser boxUser;
 
+    @ManyToOne
+    @Getter
+    @Setter
+    private Category category;
+
     @Getter
     @OneToMany
     @JoinColumn(name = "box_id")

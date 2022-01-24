@@ -12,10 +12,17 @@ import javax.validation.constraints.NotNull;
 public class Category extends AbstractEntity{
 
     @NotNull
-    @OneToMany
+
     @Getter
     @Setter
     private String categoryName;
+
+    @ManyToOne
+    @Setter
+    BoxUser boxUser;
+
+    @ManyToOne
+    Box box;
 
 
 
