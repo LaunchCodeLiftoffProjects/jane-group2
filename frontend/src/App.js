@@ -62,13 +62,25 @@ export default function App() {
                                     </LinkContainer>
                                 </div>
                             }
+                            {user &&
+                            <div>
+                                <LinkContainer to="/category">
+                                    <NavLink className="text-dark" to="/category">Categories</NavLink>
+                                </LinkContainer>
+                            </div>
+
+                            }
                         </ul>
+
+
+
                         {user &&
                             // if we are logged in
                             <div>
                                 <Button onClick={logout} style={{ float: "right" }}>Logout</Button>
                             </div>
                         }
+
                     </Container>
                 </Navbar>
             </header>
