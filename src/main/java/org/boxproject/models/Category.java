@@ -1,32 +1,45 @@
 package org.boxproject.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Category extends AbstractEntity{
-
-    @NotNull
-
-    @Getter
-    @Setter
     private String categoryName;
 
     @ManyToOne
-    @Setter
-    BoxUser boxUser;
+    private BoxUser boxUser;
 
     @ManyToOne
-    Box box;
-
-
+    private Box box;
 
     public Category () {}
 
-    public Category(String categoryName) {this.categoryName=categoryName;}
+    public Category(String categoryName) {
+        this.categoryName=categoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public BoxUser getBoxUser() {
+        return boxUser;
+    }
+
+    public void setBoxUser(BoxUser boxUser) {
+        this.boxUser = boxUser;
+    }
+
+    public Box getBox() {
+        return box;
+    }
+
+    public void setBox(Box box) {
+        this.box = box;
+    }
 }

@@ -1,7 +1,6 @@
 package org.boxproject.models;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,24 +13,18 @@ import java.util.List;
 
 @Entity
 public class BoxUser extends AbstractEntity implements UserDetails {
-
     @NotNull
-    @Getter
     private String email;
 
     @NotNull
-    @Getter
     private String username;
 
     @NotNull
-    @Getter
     private String password;
 
     @OneToMany
-    @Getter
     private List <Category> categories= new ArrayList<>();
 
-    @Getter
     @OneToMany
     @JoinColumn(name = "box_user_id")
     private final List<Box> boxes = new ArrayList<>();
@@ -42,6 +35,28 @@ public class BoxUser extends AbstractEntity implements UserDetails {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public List<Box> getBoxes() {
+        return boxes;
     }
 
     @Override
