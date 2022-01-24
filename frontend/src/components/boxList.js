@@ -36,12 +36,12 @@ export default function BoxList() {
         <div className="centered">
             <form onSubmit={handleAdd}>
                 <input type="text" value={labelName} onChange={handleChange} />
-                <button type="submit" onClick={handleAdd}>Add</button>
+                <button type="submit" onClick={handleAdd}>Add Box</button>
             </form>
 
             <ul>
                 {boxList.map(box => (
-                    <li style={{ listStyle: "none" }} key={box.id}>
+                    <li className="card" style={{ listStyle: "none", "background-color": box.labelColor }} key={box.id}>
                         <Link
                             to={{
                                 pathname: `/boxDisplay/${box.id}`,

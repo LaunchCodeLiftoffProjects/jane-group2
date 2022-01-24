@@ -1,6 +1,5 @@
 package org.boxproject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +17,10 @@ public class BoxUser extends AbstractEntity implements UserDetails {
 
     @NotNull
     @Getter
+    private String email;
+
+    @NotNull
+    @Getter
     private String username;
 
     @NotNull
@@ -27,11 +30,12 @@ public class BoxUser extends AbstractEntity implements UserDetails {
     @Getter
     @OneToMany
     @JoinColumn(name = "box_user_id")
-    private List<Box> boxes = new ArrayList<>();
+    private final List<Box> boxes = new ArrayList<>();
 
     public BoxUser() {}
 
-    public BoxUser(String username, String password) {
+    public BoxUser(String email, String username, String password) {
+        this.email = email;
         this.username = username;
         this.password = password;
     }
