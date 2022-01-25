@@ -1,12 +1,9 @@
-import React, {
-    useState
-} from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { authService } from '../services/auth';
 import {
     Link,
-    useNavigate,
-    useLocation,
+    useNavigate
 } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
@@ -14,12 +11,11 @@ import '../App.css';
 
 export default function Register() {
     const navigate = useNavigate();
-    const location = useLocation();
 
     return (
         <div>
-            <Container className="card border-2 p-0 w-25 mt-5 bg-warning">
-                <h1 className="card-header display-3 m-0">Register</h1>
+            <Container className="card border-dark border-3 p-0 w-25 mt-5">
+                <h1 className="card-header border-dark border-3 display-3 m-0">Register</h1>
                 <Formik
                     initialValues={{
                         username: '',
@@ -53,33 +49,39 @@ export default function Register() {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form className="card-body">
+
                             <div className="form-auth-group text-start px-5">
                                 <label className="lead" htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                                 <ErrorMessage name="username" component="div" className="invalid-feedback" />
                             </div>
+
                             <div className="form-auth-group text-start px-5">
                                 <label className="lead" htmlFor="password">Password</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
+
                             <div className="form-auth-group text-start px-5">
                                 <label className="lead" htmlFor="verifyPassword">Verify Password</label>
                                 <Field name="verifyPassword" type="password" className={'form-control' + (errors.verifyPassword && touched.verifyPassword ? ' is-invalid' : '')} />
                                 <ErrorMessage name="verifyPassword" component="div" className="invalid-feedback" />
                             </div>
+
                             <div className="form-auth-group">
-                                <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>Submit</button>
+                                <button type="submit" className="btn btn-dark btn-lg" disabled={isSubmitting}>Submit</button>
                             </div>
+
                             <div className="form-auth-group">
                                 {status &&
                                     <div className={'alert alert-danger'}>{status}</div>
                                 }
                             </div>
+
                         </Form>
                     )}
                 />
-                <div className="card-footer">
+                <div className="card-footer border-dark border-3">
                     <p className="mb-0">Already have an account? <Link to="/login">Login here!</Link></p>
                     <Link to="/">Back to home page</Link>
                 </div>

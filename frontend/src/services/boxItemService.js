@@ -34,7 +34,6 @@ export async function deleteBoxItem(boxId, data) {
         })
             .then(response => {
                 console.log('Box deleted!');
-                return authService.evaluate(response);
             });
     } catch (error) {
         console.log(error);
