@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { editBox, getBoxById } from '../services/boxService';
 import { addItemToBox, deleteBoxItem } from '../services/boxItemService';
@@ -13,18 +13,21 @@ export default function EditBoxDetails() {
     const [labelName, setLabelName] = useState('');
     const [boxItemName, setBoxItemName] = useState('');
 
-    const [boxDetails, setBoxDetails] = useState({});
     const [boxItems, setBoxItems] = useState([]);
 
-    async function displayEditPage() {
-        setBoxDetails(await getBoxById(boxId));
-        setLabelName(boxDetails.labelName);
-        setBoxItems(await getBoxById(boxId).then(box => box.boxItems));
-    }
+    const displayEditPage = useCallback(
+        () => {
+            getBoxById(boxId).then(json => {
+                setBoxItems(json.boxItems);
+                setLabelName(json.labelName);
+            });
+        },
+        [boxId]
+    );
 
     useEffect(() => {
         displayEditPage()
-    }, []);
+    }, [displayEditPage]);
 
     const handleLabelNameChange = event => {
         setLabelName(event.target.value);
@@ -50,45 +53,60 @@ export default function EditBoxDetails() {
     }
 
     return (
-        <div>
-            <h1>Edit Box Details</h1>
+        <div className="container card p-0 mt-5 border-3 border-dark">
+            <h1 className="card-header border-dark border-3">Edit</h1>
+            <div className="card-body d-flex justify-content-evenly mt-3">
+                <div>
 
-            <form className="d-flex flex-column">
+                    <form className="d-flex flex-column">
 
-                <label for="labelName">Name: </label>
-                <input
-                    type="text"
-                    name="labelName"
-                    id="labelName"
-                    value={labelName}
-                    onChange={handleLabelNameChange} />
+                        <label className="form-label align-self-start lead" htmlFor="labelName">Name: </label>
+                        <input
+                            className="form-control w-100"
+                            type="text"
+                            name="labelName"
+                            id="labelName"
+                            value={labelName}
+                            onChange={handleLabelNameChange} />
 
-                <form onSubmit={handleAdd}>
-                    <input type="text" value={boxItemName} onChange={handleBoxItemNameChange} />
-                    <button type="submit" onClick={handleAdd}>Add Item</button>
-                </form>
+                        <button className="btn btn-lg btn-dark mt-3 w-75" id="submitBtn" onClick={submitUpdate}><strong>Update</strong></button>
+                    </form>
+                </div>
 
-                <ul>
-                    {boxItems.map(item => (
-                        <li key={item.id}>
-                            {item.itemName}
-                            <button
-                                onClick={async (event) => {
-                                    event.preventDefault();
-                                    event.stopPropagation();
-                                    const deletedItemId = item.id;
-                                    const deletedItemName = item.itemName;
-                                    await deleteBoxItem(boxId, { deletedItemId, deletedItemName });
-                                    await displayEditPage();
-                                }}>
-                                X
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <div>
+                    <form className="d-flex align-items-center m-3" onSubmit={handleAdd}>
 
-                <button className="m-1" id="submitBtn" onClick={submitUpdate}>Update Box</button>
-            </form>
+                        <div className="input-group">
+                            <input className="form-control" type="text" value={boxItemName} onChange={handleBoxItemNameChange} />
+                            <button className="btn btn-dark p-1" type="submit" onClick={handleAdd}><strong>Add Item</strong></button>
+                        </div>
+
+                    </form>
+
+                    <ul className="list-group">
+                        {(boxItems && boxItems.length > 0) ?
+                            boxItems.map(item => (
+                                <li className="list-group-item d-flex row justify-content-around align-items-center" key={item.id}>
+                                    <div className="p-0 col-11 lead">
+                                        {item.itemName}
+                                    </div>
+
+                                    <button
+                                        className="btn btn-sm btn-outline-dark col p-0 border-3"
+                                        onClick={async (event) => {
+                                            event.preventDefault();
+                                            await deleteBoxItem(boxId, { "boxItemId": item.id, "boxItemName": item.itemName });
+                                            await displayEditPage();
+                                        }}>
+                                        <strong>X</strong>
+                                    </button>
+                                </li>
+                            )) :
+                            <h4 className="">There are no items in this box!</h4>
+                        }
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 

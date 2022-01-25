@@ -20,8 +20,8 @@ export default function Login() {
 
     return (
         <div>
-            <Container className="card border-2 p-0 w-25 mt-5 bg-warning">
-                <h1 className="card-header display-3 m-0">Login</h1>
+            <Container className="card border-3 border-dark p-0 w-25 mt-5">
+                <h1 className="card-header border-dark border-3 display-3 m-0">Login</h1>
                 <Formik
                     initialValues={{
                         username: '',
@@ -57,7 +57,7 @@ export default function Login() {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-auth-group">
-                                <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>Submit</button>
+                                <button type="submit" className="btn btn-dark btn-lg" disabled={isSubmitting}>Submit</button>
                             </div>
                             {status &&
                                 <div className={'alert alert-danger'}>{status}</div>
@@ -66,7 +66,7 @@ export default function Login() {
                     )}
                 />
 
-                <div className="card-footer">
+                <div className="card-footer border-dark border-3">
                     <p className="mb-0">Don't already have an account? <Link to="/register">Register</Link></p>
                     <Link to="/">Back to home page</Link>
                 </div>

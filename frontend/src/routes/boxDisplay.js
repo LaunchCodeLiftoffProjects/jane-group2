@@ -24,27 +24,35 @@ export default function BoxDisplay() {
     }
 
     return (
-        <div>
-            <h1>Box Display Route</h1>
+        <div className="card container p-0 border border-dark border-3">
+            <h1 className="card-header border-dark border-3">Box Display Route</h1>
 
-            <div>
-                <h2>Box Id: {boxDetails.id}</h2>
+            <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
+                <h2 className="align-self-start">Name: {boxDetails.labelName}</h2>
 
-                <h2>Box Name: {boxDetails.labelName}</h2>
-
-                <h2>Items: </h2>
-                <ul>
-                    {boxItems.map(item => (
-                        // TODO: Make a individual buttons to delete items from box
-                        <li key={item.id}>{item.itemName}</li>
-                    ))}
-                </ul>
+                <h2 className="align-self-start">Items:</h2>
+                <table class="table table-hover table-striped border border-dark border-3">
+                    <thead>
+                        <tr>
+                            <th scope="col"><strong>Id</strong></th>
+                            <th scope="col"><strong>Name</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {boxItems.map(item => (
+                            <tr className="" key={item.id}>
+                                <th className="lead" scope="row">{item.id}</th>
+                                <td className="lead">{item.itemName}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
             </div>
 
-            <div className='d-flex justify-content-center align-items-center'>
-                <Link to={`/boxDisplay/${boxId}/edit`}><button>Edit Box Details</button></Link>
-                <button className="m-2" id="deleteBtn" onClick={boxDeletion}>Delete Box</button>
+            <div className="d-flex justify-content-center align-items-center">
+                <Link className="btn btn-lg btn-dark m-2" to={`/boxDisplay/${boxId}/edit`}><strong>Edit</strong></Link>
+                <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={boxDeletion}><strong>Delete</strong></button>
             </div>
 
             <Link to="/">Back to home page</Link>
