@@ -1,9 +1,13 @@
 package org.boxproject.models.dto;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotNull;
 
 public class RegisterFormDTO extends LoginFormDTO {
-
+    @NotNull
+    @Getter
+    private String email;
     @NotNull
     private String verifyPassword;
 

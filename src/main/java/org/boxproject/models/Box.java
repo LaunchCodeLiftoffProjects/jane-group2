@@ -14,11 +14,14 @@ import java.util.List;
 
 @Entity
 public class Box extends AbstractEntity {
-
     @NotNull
     @Getter
     @Setter
     private String labelName;
+
+    @Getter
+    @Setter
+    private String labelColor;
 
     @ManyToOne
     @Getter
