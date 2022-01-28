@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import '../App.css';
-import { createBox, getAllBoxes } from '../services/boxService';
+import { searchAllBoxes, searchBoxes } from '../services/searchService';
 
-export default function BoxList() {
+export default function SearchPage() {
+
+    const { searchTerm } = useParams();
 
     // Boxes are appended to a list by clicking on an add button.
     // Each box should be a button that links to it's own route through an ID.
 
+    console.log('search term ' + searchTerm);
+    
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
     async function updateBoxList() {
-        setBoxList(await getAllBoxes());
+        setBoxList(await searchBoxes(searchTerm));
     }
 
     useEffect(() => {
@@ -25,11 +29,6 @@ export default function BoxList() {
 
     const handleAdd = async (event) => {
         event.preventDefault();
-
-        createBox({ labelName }).then(response => {
-            setLabelName('');
-            updateBoxList();
-        });
     };
 
     return (
