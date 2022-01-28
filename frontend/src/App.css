@@ -48,5 +48,45 @@ body {
 
 #deleteBtn {
   align-self: center;
-  width: 100px;
+  width: 175px;
+}
+
+.qr-code {
+  align-self: center;
+  width: 200px;
+  height: 200px;
+}
+
+.list-card {
+  padding: 5px;
+  margin: 5px;
+}
+
+.box-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box-header img {
+  width: 80px;
+  height: 80px;
+}
+
+#spacer {
+  width: 80px;
+  height: 80px;
+}
+
+.box-card-grid-container {
+  display: grid;
+  grid-template-columns: 450px 450px 450px;
+  grid-template-rows: auto auto auto; 
+  column-gap: 10px;
+  row-gap: 10px;
+}
+
+.color-picker {
+  position: fixed
 }
