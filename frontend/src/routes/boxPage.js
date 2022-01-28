@@ -10,9 +10,9 @@ export default function BoxPage() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        let subscription = authService.currentUser.subscribe((user) => {
-            console.log("user: " + user);
-            setUser(user);
+        let subscription = authService.currentUser.subscribe((authUser) => {
+            console.log("user: " + authUser);
+            setUser(authUser);
         });
         return () => {
             subscription.unsubscribe();

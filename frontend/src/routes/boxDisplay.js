@@ -21,7 +21,7 @@ export default function BoxDisplay() {
         event.preventDefault();
         await deleteBox(boxId);
         navigate('/', { replace: true });
-    }
+    };
 
     return (
         <div className="card container p-0 border border-dark border-3">

@@ -49,8 +49,7 @@ export default function BoxList() {
                         <li className="card" style={{ listStyle: "none" }} key={box.id}>
                             <Link
                                 to={{
-                                    pathname: `/boxDisplay/${box.id}`,
-                                    state: { labelName }
+                                    pathname: `/boxDisplay/${box.id}`
                                 }}
                             >
                                 {box.labelName}
