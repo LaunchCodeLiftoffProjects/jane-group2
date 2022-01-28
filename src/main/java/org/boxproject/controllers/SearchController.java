@@ -33,6 +33,7 @@ public class SearchController {
         
     @GetMapping
     public Iterable<Box> searchBoxes (String Search) throws Exception {
+        System.out.println("Got search term: " + Search);
         final BoxUser boxUser = getBoxUser();
         List<Box> boxes = new ArrayList<Box>();
         //System.out.println("Search Results: " + boxSearch);

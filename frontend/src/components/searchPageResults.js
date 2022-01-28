@@ -11,7 +11,7 @@ export default function SearchPage() {
     // Each box should be a button that links to it's own route through an ID.
 
     console.log('search term ' + searchTerm);
-    
+
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
@@ -20,8 +20,9 @@ export default function SearchPage() {
     }
 
     useEffect(() => {
+        console.log('ask for stuff');
         updateBoxList();
-    }, []);
+    }, [searchTerm]);
 
     const handleChange = event => {
         setLabelName(event.target.value);
