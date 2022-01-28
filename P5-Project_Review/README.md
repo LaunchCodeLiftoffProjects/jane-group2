@@ -1,7 +1,7 @@
 # Project Review
 You will spend 10-20 minutes with your mentor as they review the work you have done so far.
 
-If you have made progress, and you engage with your mentor you will be marked as having completed this assignment. You will not need to upload anyting to GitHub.
+If you have made progress, and you engage with your mentor you will be marked as having completed this assignment. You will not need to upload anything to GitHub.
 
 ## Assignment Description
 

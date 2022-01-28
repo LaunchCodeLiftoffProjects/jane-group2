@@ -1,12 +1,9 @@
-import React, {
-    useState
-} from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { authService } from '../services/auth';
 import {
     Link,
-    useNavigate,
-    useLocation,
+    useNavigate
 } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
@@ -14,34 +11,36 @@ import '../App.css';
 
 export default function Register() {
     const navigate = useNavigate();
-    const location = useLocation();
 
     return (
-        <div className="centered">
-            <Container>
-                <h1>Register</h1>
+        <div>
+            <Container className="card border-dark border-3 p-0 w-25 mt-5">
+                <h1 className="card-header border-dark border-3 display-3 m-0">Register</h1>
                 <Formik
                     initialValues={{
                         username: '',
                         password: ''
                     }}
                     validationSchema={Yup.object().shape({
+                        email: Yup.string()
+                            .required('Email is required.')
+                            .email('Must be a valid email.'),
                         username: Yup.string()
-                            .required('Username is required')
+                            .required('Username is required.')
                             .min(4, 'Username is too short, should be 4 characters minimum.'),
                         password: Yup.string()
-                            .required('Password is required')
+                            .required('Password is required.')
                             .min(4, 'Password is too short, should be 4 characters minimum.'),
                         verifyPassword: Yup.string()
                             .oneOf([Yup.ref('password'), null], 'Passwords must match.'),
                     })}
-                    onSubmit={({ username, password, verifyPassword }, { setStatus, setSubmitting }) => {
+                    onSubmit={({ email, username, password, verifyPassword }, { setStatus, setSubmitting }) => {
                         setStatus();
 
                         console.log('user: ' + username);
                         console.log('pass: ' + password);
 
-                        authService.register(username, password, verifyPassword).then(
+                        authService.register(email, username, password, verifyPassword).then(
                             _ => {
                                 navigate('/login', { replace: true });
                             },
@@ -52,35 +51,49 @@ export default function Register() {
                         );
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form>
-                            <div className="form-auth-group">
-                                <label htmlFor="username">Username</label>
+                        <Form className="card-body">
+
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="email">Email</label>
+                                <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                                <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                                 <ErrorMessage name="username" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-auth-group">
-                                <label htmlFor="password">Password</label>
+
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="password">Password</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-auth-group">
-                                <label htmlFor="verifyPassword">Verify Password</label>
+
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="verifyPassword">Verify Password</label>
                                 <Field name="verifyPassword" type="password" className={'form-control' + (errors.verifyPassword && touched.verifyPassword ? ' is-invalid' : '')} />
                                 <ErrorMessage name="verifyPassword" component="div" className="invalid-feedback" />
                             </div>
+
                             <div className="form-auth-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button>
+                                <button type="submit" className="btn btn-dark btn-lg" disabled={isSubmitting}>Submit</button>
                             </div>
+
                             <div className="form-auth-group">
                                 {status &&
                                     <div className={'alert alert-danger'}>{status}</div>
                                 }
                             </div>
+
                         </Form>
                     )}
                 />
-                <p>Already have an account? <Link to="/login">Login here!</Link></p>
-                <Link to="/">Back to home page</Link>
+                <div className="card-footer border-dark border-3">
+                    <p className="mb-0">Already have an account? <Link to="/login">Login here!</Link></p>
+                    <Link to="/">Back to home page</Link>
+                </div>
+
             </Container>
         </div>
     );

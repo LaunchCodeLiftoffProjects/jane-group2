@@ -1,6 +1,4 @@
-import React, {
-    useState
-} from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { authService } from '../services/auth';
 import {
@@ -22,8 +20,8 @@ export default function Login() {
 
     return (
         <div>
-            <Container>
-                <h1>Login</h1>
+            <Container className="card border-3 border-dark p-0 w-25 mt-5">
+                <h1 className="card-header border-dark border-3 display-3 m-0">Login</h1>
                 <Formik
                     initialValues={{
                         username: '',
@@ -47,19 +45,19 @@ export default function Login() {
                         );
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form>
-                            <div className="form-auth-group">
-                                <label htmlFor="username">Username</label>
+                        <Form className="card-body">
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                                 <ErrorMessage name="username" component="div" className="invalid-feedback" />
                             </div>
-                            <div className="form-auth-group">
-                                <label htmlFor="password">Password</label>
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="password">Password</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-auth-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
+                                <button type="submit" className="btn btn-dark btn-lg" disabled={isSubmitting}>Submit</button>
                             </div>
                             {status &&
                                 <div className={'alert alert-danger'}>{status}</div>
@@ -67,8 +65,11 @@ export default function Login() {
                         </Form>
                     )}
                 />
-                <p>Don't already have an account? <Link to="/register">Register here!</Link></p>
-                <Link to="/">Back to home page</Link>
+
+                <div className="card-footer border-dark border-3">
+                    <p className="mb-0">Don't already have an account? <Link to="/register">Register</Link></p>
+                    <Link to="/">Back to home page</Link>
+                </div>
             </Container>
         </div>
 

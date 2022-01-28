@@ -21,12 +21,9 @@ export default function BoxPage() {
 
     return (
         <div className="centered">
-            <h1>BoxPage Route aka Index</h1>
+            {!user ?
+                <h1 className="display-1">Login to see your boxes!</h1> :
 
-            {!user &&
-                <h4>Login to see your boxes!</h4>
-            }
-            {user &&
                 <div>
                     <h4>Welcome {user.username}!</h4>
                     <BoxList />
