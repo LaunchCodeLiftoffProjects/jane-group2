@@ -20,23 +20,19 @@ import java.util.List;
 @Controller
 @RequestMapping("/search")
 public class SearchController {
+    @Autowired
+    private BoxItemRepository boxItemRepository;
+
+    @Autowired
+    private BoxUserRepository boxUserRepository;
+
+    @PostMapping("Results")
+    public String searchResults() {
+        return "Search Results: ";
+    }
         
-        @Autowired
-        private BoxItemRepository boxItemRepository;
-
-        @Autowired
-        private BoxItem boxItem;
-
-        @Autowired
-        private BoxUserRepository boxUserRepository;
-
-        @PostMapping("Results")
-        public String searchResults() {
-                return "Search Results: ";
-        }
-        
-        @GetMapping
-        public Iterable<Box> searchBoxes (String Search) throws Exception {
+    @GetMapping
+    public Iterable<Box> searchBoxes (String Search) throws Exception {
         final BoxUser boxUser = getBoxUser();
         List<Box> boxes = new ArrayList<Box>();
         //System.out.println("Search Results: " + boxSearch);

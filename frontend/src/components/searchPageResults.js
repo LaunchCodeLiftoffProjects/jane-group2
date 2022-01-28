@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import '../App.css';
-import { createBox, getAllBoxes } from '../services/boxService';
+import { searchAllBoxes, searchBoxes } from '../services/searchService';
 
-export default function SearchList() {
+export default function SearchPage() {
+
+    const { searchTerm } = useParams();
 
     // Boxes display list by clicking on search button.
     // Each box should be a button that displays items by ID.
 
+    console.log('search term ' + searchTerm);
+    
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
     async function updateBoxSearch() {
-        setBoxList(await getAllBoxes());
+        setBoxList(await searchBoxes(searchTerm));
     }
 
     useEffect(() => {
@@ -26,10 +30,6 @@ export default function SearchList() {
     const handleAdd = async (event) => {
         event.preventDefault();
 
-        searchBox({ labelName }).then(response => {
-            setLabelName('');
-            updateBoxSearch();
-        });
     };
 
     return (
