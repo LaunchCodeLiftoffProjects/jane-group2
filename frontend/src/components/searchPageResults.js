@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import { createBox, getAllBoxes } from '../services/boxService';
 
-export default function BoxList() {
+export default function SearchList() {
 
-    // Boxes are appended to a list by clicking on an add button.
-    // Each box should be a button that links to it's own route through an ID.
+    // Boxes display list by clicking on search button.
+    // Each box should be a button that displays items by ID.
 
     const [boxList, setBoxList] = useState([]);
     const [labelName, setLabelName] = useState('');
 
-    async function updateBoxList() {
+    async function updateBoxSearch() {
         setBoxList(await getAllBoxes());
     }
 
     useEffect(() => {
-        updateBoxList();
+        updateBoxSearch();
     }, []);
 
     const handleChange = event => {
@@ -26,9 +26,9 @@ export default function BoxList() {
     const handleAdd = async (event) => {
         event.preventDefault();
 
-        createBox({ labelName }).then(response => {
+        searchBox({ labelName }).then(response => {
             setLabelName('');
-            updateBoxList();
+            updateBoxSearch();
         });
     };
 
@@ -38,7 +38,7 @@ export default function BoxList() {
 
                 <div className="input-group w-25">
                     <input className="form-control" type="text" value={labelName} onChange={handleChange} />
-                    <button className="btn btn-dark" type="submit" onClick={handleAdd}>Add Box</button>
+                    <button className="btn btn-dark" type="submit" onClick={handleAdd}>Search Box</button>
                 </div>
 
             </form>
