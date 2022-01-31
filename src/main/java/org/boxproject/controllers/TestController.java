@@ -1,5 +1,6 @@
 package org.boxproject.controllers;
 
+import org.boxproject.models.dto.BasicMessageDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class TestController {
 
     // non whitelisted mapping to test authorization
     @GetMapping("/api/testWithAuth")
-    public String testAuthorized() {
-        return strings[random.nextInt(strings.length)];
+    public BasicMessageDTO testAuthorized() {
+        return new BasicMessageDTO(strings[random.nextInt(strings.length)]);
     }
 }

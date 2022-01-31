@@ -15,9 +15,9 @@ export default function TestAuth() {
             method: "GET",
             headers: { 'Authorization': authService.header() }
         })
-            .then(response => authService.evaluate(response))
-            .then(authText => {
-                setText(authText);
+            .then(authService.evaluate)
+            .then(json => {
+                setText(json.message);
             });
     }, []);
 

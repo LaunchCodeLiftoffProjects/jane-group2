@@ -44,19 +44,24 @@ export default function BoxList() {
             </form>
 
             {(boxList && boxList.length > 0) ?
-                <ul>
+                <div class="box-card-grid-container">
                     {boxList.map(box => (
-                        <li className="card" style={{ listStyle: "none" }} key={box.id}>
-                            <Link
-                                to={{
-                                    pathname: `/boxDisplay/${box.id}`
-                                }}
-                            >
-                                {box.labelName}
-                            </Link>
-                        </li>
+                        <Link
+                            to={{
+                                pathname: `/boxDisplay/${box.id}`
+                            }}
+                            style={{ color: 'black', textDecoration: 'none' }}
+                        >
+                            <div className="card border-3" style={{ "background-color": box.labelColor }} key={box.id}>
+                                <div className="box-header" style={{ "margin": "5px" }}>
+                                    <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
+                                    <h2 id="box-header-text">{box.labelName}</h2>
+                                    <div id="spacer"></div>
+                                </div>
+                            </div>
+                        </Link>
                     ))}
-                </ul> :
+                </div> :
                 <h3 className="mt-5">You currently have no boxes to show. Add boxes above to view list.</h3>
             }
         </div>
