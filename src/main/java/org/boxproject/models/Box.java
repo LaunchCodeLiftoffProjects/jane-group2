@@ -1,8 +1,6 @@
 package org.boxproject.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,21 +14,17 @@ import java.util.List;
 public class Box extends AbstractEntity {
 
     @NotNull
-    @Getter
-    @Setter
     private String labelName;
 
-    @Getter
-    @Setter
     private String labelColor;
 
     @ManyToOne
-    @Getter
-    @Setter
     @JsonIgnore
     private BoxUser boxUser;
 
-    @Getter
+    @ManyToOne
+    private Category category;
+
     @OneToMany
     @JoinColumn(name = "box_id")
     private final List<BoxItem> boxItems = new ArrayList<>();
@@ -39,5 +33,41 @@ public class Box extends AbstractEntity {
 
     public Box(String labelName) {
         this.labelName = labelName;
+    }
+
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
+    }
+
+    public String getLabelColor() {
+        return labelColor;
+    }
+
+    public void setLabelColor(String labelColor) {
+        this.labelColor = labelColor;
+    }
+
+    public BoxUser getBoxUser() {
+        return boxUser;
+    }
+
+    public void setBoxUser(BoxUser boxUser) {
+        this.boxUser = boxUser;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<BoxItem> getBoxItems() {
+        return boxItems;
     }
 }

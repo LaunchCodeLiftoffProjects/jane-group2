@@ -67,7 +67,19 @@ export default function App() {
                                     <button className="btn btn-dark" onClick={logout} style={{ float: "right" }}><strong>LOGOUT</strong></button>
                                 </div>
                             }
+                            {user &&
+                              <div>
+                                  <LinkContainer to="/category">
+                                      <NavLink className="text-dark" to="/category">Categories</NavLink>
+                                  </LinkContainer>
+                              </div>
+                              <div>
+                                  <Button onClick={logout} style={{ float: "right" }}>Logout</Button>
+                              </div>
+                            }
                         </ul>
+                            
+                        }
                     </Container>
                 </Navbar>
             </header>

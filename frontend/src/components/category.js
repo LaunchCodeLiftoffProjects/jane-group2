@@ -1,27 +1,68 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+/*import createCategory from '../services/categoryService';*/
 
-const Category = () => {
-    const [categories, setCategories] = useState([]);
 
-    const filterResult = (catItem) => {
-        const result = categories.filter((curData) => {
-            return curData.category === catItem;
+
+
+ 
+export default function CategoryPage() {
+
+    const [categoryName, setCategoryName] = useState('')
+    const [categories, setCategories] = useState([])
+
+    
+
+   /* const filterResult=(catItem)=>{
+        const result=categories.filter((curData)=>{
+            return curData.category===catItem;
         });
-        setCategories(result);
+        setCategories(result)
+    }*/
+
+    const handleChange = event => {
+        setCategoryName(event.target.value)
     }
+
+  const handleAdd =  (event) => {
+    event.preventDefault()
+
+    /*createCategory({categoryName}).then(response =>{
+        console.log(categories)
+    }
+
+)*/}
 
     return (
         <>
+           <div>
             <h1 className="centered">Category</h1>
+            <form onSubmit={handleAdd}>
+             <input type="text" value={categoryName} onChange={handleChange} />
+             <button type="submit" onClick={handleAdd}>Create</button>
+            </form>
+           </div>
+
             <div className="container-fluid mx-2">
                 <div className="row mt-5 mx-3">
                     <div className="col-md-3">
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Basement')}>Basement</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Bathroom')}>Bathroom</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Bedroom')}>Bedroom</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => filterResult('Family Room')}>Family Room</button>
-                        <button className="btn btn-warning w-100 mb-4" onClick={() => setCategories(categories)}>All</button>
-
+                    
+                        <button className="btn btn-warning w-100 mb-4" onClick={() =>setCategories(categories)}>All</button>
+                        {
+                            categories.map(category => (
+                                <li style={{ listStyle: "none" }} key={category.id}>
+                                    <Link
+                                        to={{
+                                            pathname: `/category/${category.id}`,
+                                            state: { category }
+                                        }}
+                                        >
+                                    
+                                      {category.labelName}
+                                    </Link>
+                                </li>
+                            ))
+                        }
 
                     </div>
                     <div className="col-md-9">
@@ -53,5 +94,5 @@ const Category = () => {
         </>
     )
 }
+                                                                      
 
-export default Category;
