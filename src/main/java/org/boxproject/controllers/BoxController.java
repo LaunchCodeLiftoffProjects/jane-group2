@@ -11,8 +11,6 @@ import org.boxproject.models.dto.BoxItemDTO;
 import org.boxproject.security.BoxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -63,7 +61,6 @@ public class BoxController {
         return ResponseEntity.ok(newBox);
     }
 
-    // TODO
     @PostMapping("{boxId}/edit")
     public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
@@ -110,12 +107,12 @@ public class BoxController {
     }
 
     @DeleteMapping("{boxId}/edit")
-    public @ResponseBody String processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+    public ResponseEntity<Optional<BoxItem>> processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
         final BoxUser boxUser = boxUserService.getBoxUser();
 
         boxItemRepository.deleteById(payload.getBoxItemId());
-        return "Item Deleted";
+        return ResponseEntity.ok(boxItemRepository.findById(payload.getBoxItemId()));
     }
 
     // TODO: bound these in a special range, or perhaps hand select colors and pop them from a queue before wrapping the queue

@@ -48,8 +48,7 @@ export default function BoxList() {
                     {boxList.map(box => (
                         <Link
                             to={{
-                                pathname: `/boxDisplay/${box.id}`,
-                                state: { labelName }
+                                pathname: `/boxDisplay/${box.id}`
                             }}
                             style={{ color: 'black', textDecoration: 'none' }}
                         >

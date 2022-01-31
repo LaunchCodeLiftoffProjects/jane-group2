@@ -6,7 +6,7 @@ import {
     useNavigate,
     Outlet
 } from 'react-router-dom';
-import { Container, Navbar, NavbarBrand, NavLink, Button } from 'react-bootstrap';
+import { Container, Navbar, NavbarBrand, NavLink } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
 import { authService } from "./services/auth"
