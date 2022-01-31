@@ -29,7 +29,7 @@ export async function searchAllBoxes() {
 
 export async function searchBoxes(term) {
   try {
-    return await fetch(`'/api/search/term/${term}'`, {
+    return await fetch(`/api/search/term/${term}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

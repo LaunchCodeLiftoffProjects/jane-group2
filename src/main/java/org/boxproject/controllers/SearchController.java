@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +33,8 @@ public class SearchController {
     }
         
     @GetMapping("{term}")
-    public SearchResultsDTO searchBoxes (@PathVariable String Search) throws Exception {
-        System.out.println("Searching for: " + Search);
+    public SearchResultsDTO searchBoxes (@PathVariable String term) throws Exception {
+        System.out.println("Searching for: " + term);
         final BoxUser boxUser = getBoxUser();
         final SearchResultsDTO searchResultsDTO = new SearchResultsDTO();
         List<Box> boxes = new ArrayList<Box>();
@@ -43,7 +42,7 @@ public class SearchController {
             System.out.println("Items in box: " + box);
             boolean doesBoxContainSearch = false;
             for(BoxItem item : box.getBoxItems()) {
-                if (item.getItemName().contains(Search)) {
+                if (item.getItemName().contains(term)) {
                     doesBoxContainSearch = true;
                 }
             }
