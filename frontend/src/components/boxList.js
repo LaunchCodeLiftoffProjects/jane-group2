@@ -33,26 +33,37 @@ export default function BoxList() {
     };
 
     return (
-        <div className="centered">
-            <form onSubmit={handleAdd}>
-                <input type="text" value={labelName} onChange={handleChange} />
-                <button type="submit" onClick={handleAdd}>Add Box</button>
+        <div className="container">
+            <form className="d-flex justify-content-center m-3" onSubmit={handleAdd}>
+
+                <div className="input-group w-25">
+                    <input className="form-control" type="text" value={labelName} onChange={handleChange} />
+                    <button className="btn btn-dark" type="submit" onClick={handleAdd}>Add Box</button>
+                </div>
+
             </form>
 
-            <ul>
-                {boxList.map(box => (
-                    <li className="card" style={{ listStyle: "none", "background-color": box.labelColor }} key={box.id}>
+            {(boxList && boxList.length > 0) ?
+                <div class="box-card-grid-container">
+                    {boxList.map(box => (
                         <Link
                             to={{
-                                pathname: `/boxDisplay/${box.id}`,
-                                state: { labelName }
+                                pathname: `/boxDisplay/${box.id}`
                             }}
+                            style={{ color: 'black', textDecoration: 'none' }}
                         >
-                            {box.labelName}
+                            <div className="card border-3" style={{ "background-color": box.labelColor }} key={box.id}>
+                                <div className="box-header" style={{ "margin": "5px" }}>
+                                    <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
+                                    <h2 id="box-header-text">{box.labelName}</h2>
+                                    <div id="spacer"></div>
+                                </div>
+                            </div>
                         </Link>
-                    </li>
-                ))}
-            </ul>
+                    ))}
+                </div> :
+                <h3 className="mt-5">You currently have no boxes to show. Add boxes above to view list.</h3>
+            }
         </div>
     );
 }

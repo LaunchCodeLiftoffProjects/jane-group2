@@ -12,6 +12,7 @@ import java.util.List;
 
 @Entity
 public class Box extends AbstractEntity {
+
     @NotNull
     private String labelName;
 

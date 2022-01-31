@@ -70,6 +70,7 @@ export async function createBox(data) {
 }
 
 export async function editBox(boxId, data) {
+
     try {
         return await fetch(`/api/boxes/${boxId}/edit`, {
             method: 'PUT',
@@ -85,6 +86,7 @@ export async function editBox(boxId, data) {
     } catch (error) {
         console.log(error);
     }
+
 }
 
 export async function deleteBox(boxId) {
@@ -98,7 +100,7 @@ export async function deleteBox(boxId) {
         })
             .then(response => {
                 console.log('Box deleted!');
-                return authService.evaluate(response);
+                console.log(response);
             });
     } catch (error) {
         console.log(error);

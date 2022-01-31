@@ -8,10 +8,9 @@ import org.boxproject.models.data.BoxRepository;
 import org.boxproject.models.data.BoxUserRepository;
 import org.boxproject.models.dto.BoxDTO;
 import org.boxproject.models.dto.BoxItemDTO;
+import org.boxproject.security.BoxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -21,6 +20,9 @@ import java.util.Random;
 @RequestMapping("/api/boxes")
 public class BoxController {
     private static final Random random = new Random();
+
+    @Autowired
+    private BoxUserService boxUserService;
 
     @Autowired
     private BoxUserRepository boxUserRepository;
@@ -33,7 +35,7 @@ public class BoxController {
 
     @GetMapping
     public Iterable<Box> retrieveBoxes() throws Exception {
-        final BoxUser boxUser = getBoxUser();
+        final BoxUser boxUser = boxUserService.getBoxUser();
         System.out.println("User: " + boxUser);
         for(Box box : boxUser.getBoxes()) {
             System.out.println("User owns box: " + box);
@@ -48,7 +50,7 @@ public class BoxController {
 
     @PostMapping
     public ResponseEntity<Box> processCreateBoxForm(@RequestBody BoxDTO payload) throws Exception {
-        final BoxUser boxUser = getBoxUser();
+        final BoxUser boxUser = boxUserService.getBoxUser();
 
         final Box newBox = new Box(payload.getLabelName());
 
@@ -59,7 +61,6 @@ public class BoxController {
         return ResponseEntity.ok(newBox);
     }
 
-    // TODO
     @PostMapping("{boxId}/edit")
     public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
@@ -75,7 +76,7 @@ public class BoxController {
     @PutMapping("{boxId}/edit")
     public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) throws Exception {
 
-        final BoxUser boxUser = getBoxUser();
+        final BoxUser boxUser = boxUserService.getBoxUser();
 
         Optional<Box> updateBox = boxRepository.findById(boxId)
                 .map(box -> {
@@ -89,7 +90,7 @@ public class BoxController {
     @DeleteMapping("{boxId}")
     public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
 
-        final BoxUser boxUser = getBoxUser();
+        final BoxUser boxUser = boxUserService.getBoxUser();
         final Optional<Box> boxOptional = boxRepository.findById(boxId);
 
         if (boxOptional.isPresent()) {
@@ -106,20 +107,12 @@ public class BoxController {
     }
 
     @DeleteMapping("{boxId}/edit")
-    public @ResponseBody String processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+    public ResponseEntity<Optional<BoxItem>> processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
-        final BoxUser boxUser = getBoxUser();
+        final BoxUser boxUser = boxUserService.getBoxUser();
 
         boxItemRepository.deleteById(payload.getBoxItemId());
-        return "Item Deleted";
-    }
-
-    private BoxUser getBoxUser() throws Exception {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            throw new Exception("User is not authorized!");
-        }
-        return boxUserRepository.findByUsername(authentication.getName());
+        return ResponseEntity.ok(boxItemRepository.findById(payload.getBoxItemId()));
     }
 
     // TODO: bound these in a special range, or perhaps hand select colors and pop them from a queue before wrapping the queue

@@ -33,9 +33,6 @@ export default function CategoryPage() {
 
 )*/}
 
-   
-    
-    
     return (
         <>
            <div>
@@ -61,18 +58,17 @@ export default function CategoryPage() {
                                         }}
                                         >
                                     
-                                        {category.labelName}
+                                      {category.labelName}
                                     </Link>
                                 </li>
                             ))
                         }
 
-
                     </div>
                     <div className="col-md-9">
                         <div className="row">
                             {categories.map((values) => {
-                                const {id,boxName,contents}=values;
+                                const { id, boxName, contents } = values;
                                 return (
                                     <>
                                         <div className="col-md-4 mb-4" key={id}>
