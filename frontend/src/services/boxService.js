@@ -106,3 +106,22 @@ export async function deleteBox(boxId) {
         console.log(error);
     }
 }
+
+export async function randomizeBoxColor(boxId) {
+    try {
+        return await fetch(`/api/boxes/${boxId}/randomizeColor`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authService.header()
+            }
+        })
+            .then(response => {
+                console.log('Box color randomized!');
+                console.log(response);
+                return authService.evaluate(response);
+            });
+    } catch (error) {
+        console.log(error);
+    }
+}
