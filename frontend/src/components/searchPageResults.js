@@ -34,23 +34,9 @@ export default function SearchPage() {
 
   return (
     <div className="container">
-      <form className="d-flex justify-content-center m-3" onSubmit={handleAdd}>
-        <div className="input-group w-25">
-          <input
-            className="form-control"
-            type="text"
-            value={labelName}
-            onChange={handleChange}
-          />
-          <button className="btn btn-dark" type="submit" onClick={handleAdd}>
-            Search Box
-          </button>
-        </div>
-      </form>
-
-      {boxList && boxList.length > 0 ? (
-        <ul>
-          {boxList.map((box) => (
+        {boxList && boxList.length > 0 ? (
+            <ul>
+            {boxList.map((box) => (
             <li className="card" style={{ listStyle: "none" }} key={box.id}>
               <Link
                 to={{
