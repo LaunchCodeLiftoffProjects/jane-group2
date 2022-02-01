@@ -10,7 +10,7 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import "./App.css";
 import { authService } from "./services/auth";
-import Search from "./search";
+import Search from "./searchBar";
 
 export default function App() {
   const navigate = useNavigate();
