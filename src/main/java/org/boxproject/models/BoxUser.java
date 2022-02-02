@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 public class BoxUser extends AbstractEntity implements UserDetails {
+
     @NotNull
     private String email;
 
@@ -23,7 +24,8 @@ public class BoxUser extends AbstractEntity implements UserDetails {
     private String password;
 
     @OneToMany
-    private List <Category> categories= new ArrayList<>();
+    @JoinColumn(name = "box_user_id")
+    private final List<Category> categories= new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "box_user_id")

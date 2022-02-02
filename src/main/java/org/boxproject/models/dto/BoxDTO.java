@@ -9,4 +9,8 @@ public class BoxDTO {
     @Setter
     private String labelName;
 
+    @Getter
+    @Setter
+    private long catId;
+
 }

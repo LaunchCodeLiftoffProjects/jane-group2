@@ -1,22 +1,33 @@
 package org.boxproject.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Category extends AbstractEntity{
+
+    @NotBlank
     private String categoryName;
 
     @ManyToOne
+    @JsonIgnore
     private BoxUser boxUser;
 
-    @ManyToOne
-    private Box box;
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private final List<Box> boxes = new ArrayList<>();
 
     public Category () {}
 
     public Category(String categoryName) {
-        this.categoryName=categoryName;
+        this.categoryName = categoryName;
     }
 
     public String getCategoryName() {
@@ -35,11 +46,8 @@ public class Category extends AbstractEntity{
         this.boxUser = boxUser;
     }
 
-    public Box getBox() {
-        return box;
+    public List<Box> getBoxes() {
+        return boxes;
     }
 
-    public void setBox(Box box) {
-        this.box = box;
-    }
 }

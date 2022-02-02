@@ -1,17 +1,20 @@
 import React, {
+    createContext,
     useEffect,
     useState
 } from 'react';
 import '../App.css';
 import { authService } from "../services/auth";
-import BoxList from '../components/boxList';
+import BoxPageContent from '../components/boxPageContent';
+
+export const BoxPageContext = createContext();
 
 export default function BoxPage() {
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         let subscription = authService.currentUser.subscribe((authUser) => {
-            console.log("user: " + authUser);
             setUser(authUser);
         });
         return () => {
@@ -22,11 +25,12 @@ export default function BoxPage() {
     return (
         <div className="centered">
             {!user ?
-                <h1 className="display-1">Login to see your boxes!</h1> :
-
                 <div>
-                    <h4>Welcome {user.username}!</h4>
-                    <BoxList />
+                    <h1>Login to see your boxes!</h1> :
+                </div> :
+                <div>
+                    {/* <h4>Welcome {user.username}!</h4> */}
+                    <BoxPageContent />
                 </div>
             }
 

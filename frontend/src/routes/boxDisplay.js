@@ -65,7 +65,7 @@ export default function BoxDisplay() {
 
             <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
                 <h2 className="align-self-start">Items:</h2>
-                <table class="table table-hover table-striped border border-dark border-3">
+                <table className="table table-hover table-striped border border-dark border-3">
                     <thead>
                         <tr>
                             <th scope="col"><strong>Id</strong></th>

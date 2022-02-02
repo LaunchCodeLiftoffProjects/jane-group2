@@ -3,9 +3,11 @@ package org.boxproject.controllers;
 import org.boxproject.models.Box;
 import org.boxproject.models.BoxItem;
 import org.boxproject.models.BoxUser;
+import org.boxproject.models.Category;
 import org.boxproject.models.data.BoxItemRepository;
 import org.boxproject.models.data.BoxRepository;
 import org.boxproject.models.data.BoxUserRepository;
+import org.boxproject.models.data.CategoryRepository;
 import org.boxproject.models.dto.BoxDTO;
 import org.boxproject.models.dto.BoxItemDTO;
 import org.boxproject.security.BoxUserService;
@@ -33,6 +35,9 @@ public class BoxController {
     @Autowired
     private BoxItemRepository boxItemRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @GetMapping
     public Iterable<Box> retrieveBoxes() throws Exception {
         final BoxUser boxUser = boxUserService.getBoxUser();
@@ -50,14 +55,16 @@ public class BoxController {
 
     @PostMapping
     public ResponseEntity<Box> processCreateBoxForm(@RequestBody BoxDTO payload) throws Exception {
+
         final BoxUser boxUser = boxUserService.getBoxUser();
+        final Box newBox = new Box(payload.getLabelName(), payload.getCatId());
+        final Optional<Category> boxCategory = categoryRepository.findById(payload.getCatId());
 
-        final Box newBox = new Box(payload.getLabelName());
-
+        boxCategory.ifPresent(newBox::setCategory);
         newBox.setBoxUser(boxUser);
         newBox.setLabelColor(generateRandomHexColor());
-        boxRepository.save(newBox);
 
+        boxRepository.save(newBox);
         return ResponseEntity.ok(newBox);
     }
 
@@ -65,11 +72,11 @@ public class BoxController {
     public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
         final Optional<Box> boxToAddItem = boxRepository.findById(boxId);
-
         final BoxItem newItem = new BoxItem(payload.getBoxItemName());
-        boxToAddItem.ifPresent(newItem::setBox);
-        boxItemRepository.save(newItem);
 
+        boxToAddItem.ifPresent(newItem::setBox);
+
+        boxItemRepository.save(newItem);
         return ResponseEntity.ok(newItem);
     }
 
@@ -93,7 +100,7 @@ public class BoxController {
         final BoxUser boxUser = boxUserService.getBoxUser();
         final Optional<Box> boxOptional = boxRepository.findById(boxId);
 
-        if (boxOptional.isPresent()) {
+        if (boxOptional.isPresent() && boxUser.getBoxes().contains(boxOptional.get())) {
             final Box box = boxOptional.get();
 
             for(BoxItem item : box.getBoxItems()) {
