@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +14,21 @@ import java.util.List;
 @Entity
 public class Box extends AbstractEntity {
 
-    @NotNull
+    @NotBlank
     private String labelName;
 
+    @NotBlank
     private String labelColor;
+
+    @NotNull
+    private long catId;
 
     @ManyToOne
     @JsonIgnore
     private BoxUser boxUser;
 
     @ManyToOne
+    @JsonIgnore
     private Category category;
 
     @OneToMany
@@ -31,8 +37,9 @@ public class Box extends AbstractEntity {
 
     public Box() {}
 
-    public Box(String labelName) {
+    public Box(String labelName, long catId) {
         this.labelName = labelName;
+        this.catId = catId;
     }
 
     public String getLabelName() {
@@ -67,7 +74,16 @@ public class Box extends AbstractEntity {
         this.category = category;
     }
 
+    public long getCatId() {
+        return catId;
+    }
+
+    public void setCatId(long catId) {
+        this.catId = catId;
+    }
+
     public List<BoxItem> getBoxItems() {
         return boxItems;
     }
+
 }

@@ -10,7 +10,7 @@ import { Container, Navbar, NavbarBrand, NavLink } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
 import { authService } from "./services/auth"
-import Search from "./search";
+import Search from "./components/search";
 
 export default function App() {
     const navigate = useNavigate();
@@ -18,8 +18,8 @@ export default function App() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        let subscription = authService.currentUser.subscribe((user) => {
-            setUser(user);
+        let subscription = authService.currentUser.subscribe((authUser) => {
+            setUser(authUser);
         });
         return () => {
             subscription.unsubscribe();
@@ -33,9 +33,11 @@ export default function App() {
 
     return (
         <div className="centered">
+
             <header className="border-bottom border-dark border-4">
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white box-shadow mb-3">
                     <Container>
+
                         <LinkContainer to="/">
                             <NavbarBrand className="header-top">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-puzzle-fill" viewBox="0 0 16 16">
@@ -46,9 +48,6 @@ export default function App() {
                         </LinkContainer>
 
                         <ul className="navbar-nav flex-grow">
-                            <LinkContainer to="/">
-                                <NavLink className="text-dark" to="/">HOME</NavLink>
-                            </LinkContainer>
                             {!user
                                 // if we are not logged in
                                 ? <div className="d-flex">
@@ -60,31 +59,21 @@ export default function App() {
                                     </LinkContainer>
                                 </div>
                                 // if we are logged in
-                                : <div className="d-flex">
-                                    <LinkContainer to="/testAuth">
-                                        <NavLink className="text-dark" to="/testAuth">VIP Page</NavLink>
-                                    </LinkContainer>
+                                :
+                                <div className="d-flex">
+                                    <Search />
                                     <button className="btn btn-dark" onClick={logout} style={{ float: "right" }}><strong>LOGOUT</strong></button>
                                 </div>
-                            }
-                            {user &&
-                              <div>
-                                  <LinkContainer to="/category">
-                                      <NavLink className="text-dark" to="/category">Categories</NavLink>
-                                  </LinkContainer>
-                              </div>
-                              <div>
-                                  <Button onClick={logout} style={{ float: "right" }}>Logout</Button>
-                              </div>
+
                             }
                         </ul>
-                            
-                        }
+
                     </Container>
                 </Navbar>
             </header>
-            <Search />
+
             <Outlet />
+
         </div>
     );
 

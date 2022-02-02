@@ -1,5 +1,5 @@
 const SearchBar = () => (
-  <form className="w-25 mx-auto my-5" action="/" method="get">
+  <form className="me-3 align-self-center" action="/" method="get">
     <div className="d-flex justify-content-center input-group">
       <input
         className="form-control"
