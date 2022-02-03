@@ -51,15 +51,15 @@ export default function BoxDisplay() {
                         <table className="table table-hover table-striped border border-dark border-3">
                             <thead>
                                 <tr>
-                                    <th scope="col"><strong>Id</strong></th>
                                     <th scope="col"><strong>Name</strong></th>
+                                    <th scope="col"><strong>Quantity</strong></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {boxItems.map(item => (
                                     <tr className="" key={item.id}>
-                                        <th className="lead" scope="row">{item.id}</th>
-                                        <td className="lead">{item.itemName}</td>
+                                        <th className="lead" scope="row">{item.itemName}</th>
+                                        <td className="lead">x{item.itemQuantity}</td>
                                     </tr>
                                 ))}
                             </tbody>
