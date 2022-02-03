@@ -1,23 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
 import { deleteBox, getBoxById, randomizeBoxColor } from '../services/boxService';
 import { getQRCode } from '../services/qrCodeService';
 import ReactToPrint from "react-to-print";
 import { QRCode } from "../components/qrCode";
-import { HexColorPicker } from "react-colorful";
 import "../routes/boxDisplay.css";
-import ReactImageAppear from 'react-image-appear';
 
 export default function BoxDisplay() {
-
     const navigate = useNavigate();
+
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [boxItems, setBoxItems] = useState([]);
     const [qrCode, setQRCode] = useState();
-
-    const [color, setColor] = useState();
-    const [showColorPicker, setShowColorPicker] = useState(false);
 
     const qrCodeRef = useRef();
 
@@ -51,22 +46,29 @@ export default function BoxDisplay() {
 
                 <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
                     <h2 className="align-self-start">Items</h2>
-                    <table className="table table-hover table-striped border border-dark border-3">
-                        <thead>
-                            <tr>
-                                <th scope="col"><strong>Id</strong></th>
-                                <th scope="col"><strong>Name</strong></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {boxItems.map(item => (
-                                <tr className="" key={item.id}>
-                                    <th className="lead" scope="row">{item.id}</th>
-                                    <td className="lead">{item.itemName}</td>
+                    {boxItems && boxItems.length > 0
+                        ?
+                        <table className="table table-hover table-striped border border-dark border-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><strong>Name</strong></th>
+                                    <th scope="col"><strong>Quantity</strong></th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {boxItems.map(item => (
+                                    <tr className="" key={item.id}>
+                                        <th className="lead" scope="row">{item.itemName}</th>
+                                        <td className="lead">x{item.itemQuantity}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        :
+                        <div className="align-self-start">
+                            <h5>There are no items in this box.</h5>
+                        </div>
+                    }
 
                     <div>
                         <QRCode boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
@@ -74,7 +76,7 @@ export default function BoxDisplay() {
                 </div>
 
                 <div className="d-flex justify-content-center align-items-center">
-                    <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/`}><strong>Go Back</strong></Link>
+                    <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={() => navigate(-1)}><strong>Go Back</strong></button>
                     <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Change Items</strong></Link>
                     <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={changeColor}><strong>Change Color</strong></button>
                     <ReactToPrint

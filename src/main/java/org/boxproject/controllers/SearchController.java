@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/search")
@@ -20,18 +21,24 @@ public class SearchController {
         System.out.println("Searching for: " + term);
         List<Box> boxes = new ArrayList<>();
         for(Box box : boxUserService.getBoxUser().getBoxes()) {
-            boolean doesBoxContainSearch = false;
-            for(BoxItem item : box.getBoxItems()) {
-                if (item.getItemName().contains(term)) {
-                    doesBoxContainSearch = true;
-                    break;
+            boolean match = isMatch(box.getLabelName(), term);
+            if(!match) {
+                for (BoxItem item : box.getBoxItems()) {
+                    if (isMatch(item.getItemName(), term)) {
+                        match = true;
+                        break;
+                    }
                 }
             }
-            if (doesBoxContainSearch) {
+            if (match) {
                 boxes.add(box);
             }
         }
         System.out.println("Results: " + boxes.size());
         return boxes;
+    }
+
+    private boolean isMatch(String input, String term) {
+        return Pattern.compile(Pattern.quote(term), Pattern.CASE_INSENSITIVE).matcher(input).find();
     }
 }
