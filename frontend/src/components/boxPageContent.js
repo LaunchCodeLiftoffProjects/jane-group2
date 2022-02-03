@@ -93,7 +93,7 @@ export default function BoxPageContent() {
                     <div className="d-flex flex-column mt-5">
 
                         <button
-                            className="btn btn-dark mb-2"
+                            className="btn btn-dark mb-2 mx-auto w-100"
                             value="all"
                             type="button"
                             onClick={updateBoxList}
@@ -102,7 +102,7 @@ export default function BoxPageContent() {
                         </button>
                         {sidebarCategoryList.map(category => (
                             <div
-                                className="btn input-group mb-2"
+                                className="row input-group mb-2 mx-auto justify-content-center"
                                 key={category.id} value={category.id}
                                 onClick={async (event) => {
                                     const allBoxes = await getAllBoxes();
@@ -112,14 +112,13 @@ export default function BoxPageContent() {
                                     }));
                                 }}>
                                 <button
-                                    className="btn btn-outline-dark"
+                                    className="btn btn-outline-dark col-10"
                                     value={category.id}
-
                                 >
                                     {category.categoryName}
                                 </button>
                                 <button
-                                    className="btn btn-dark"
+                                    className="btn btn-dark col-2"
                                     type="button"
                                     value={category.id}
                                     onClick={handleCategoryDeletion}

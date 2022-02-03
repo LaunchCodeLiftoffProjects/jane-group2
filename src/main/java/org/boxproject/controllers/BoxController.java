@@ -3,7 +3,6 @@ package org.boxproject.controllers;
 import org.boxproject.models.Box;
 import org.boxproject.models.BoxItem;
 import org.boxproject.models.BoxUser;
-import org.boxproject.models.RegistrationResponse;
 import org.boxproject.models.Category;
 import org.boxproject.models.data.BoxItemRepository;
 import org.boxproject.models.data.BoxRepository;
