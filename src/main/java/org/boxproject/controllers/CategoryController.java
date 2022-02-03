@@ -33,6 +33,20 @@ public class CategoryController {
         return categoryRepository.findById(categoryId);
     }
 
+    @PostMapping
+    public ResponseEntity<Category> processCreateCategoryForm(@RequestBody CategoryDTO payload) throws Exception {
+
+        final BoxUser boxUser = boxUserService.getBoxUser();
+        final Category newCategory = new Category(payload.getCategoryName());
+
+        System.out.println(payload.getCategoryName());
+
+        newCategory.setBoxUser(boxUser);
+        categoryRepository.save(newCategory);
+
+        return ResponseEntity.ok(newCategory);
+    }
+
     @DeleteMapping("{categoryId}")
     public @ResponseBody String processBoxDeletion(@PathVariable Long categoryId) throws Exception {
 
@@ -45,18 +59,5 @@ public class CategoryController {
 
         return "Box Deleted";
     }
-
-    @PostMapping
-    public ResponseEntity<Category> processCreateCategoryForm(@RequestBody CategoryDTO payload) throws Exception {
-
-        final BoxUser boxUser = boxUserService.getBoxUser();
-        final Category newCategory = new Category(payload.getCategoryName());
-
-        newCategory.setBoxUser(boxUser);
-        categoryRepository.save(newCategory);
-
-        return ResponseEntity.ok(newCategory);
-    }
-
 
 }

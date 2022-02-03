@@ -50,9 +50,8 @@ public class UserController {
     public ResponseEntity<RegistrationResponse> register(@RequestBody RegisterFormDTO dto) {
         // must be posted as application/json
 
-        System.out.println(String.format("Register Request [email: %s, user: %s, pass: %s, verify password: %s]",
-                dto.getEmail(), dto.getUsername(), dto.getPassword(), dto.getVerifyPassword())
-        );
+        System.out.printf("Register Request [email: %s, user: %s, pass: %s, verify password: %s]%n",
+                dto.getEmail(), dto.getUsername(), dto.getPassword(), dto.getVerifyPassword());
 
         if (userRepository.findByEmail(dto.getEmail()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegistrationResponse("Email is already in use."));
@@ -91,9 +90,8 @@ public class UserController {
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginFormDTO dto) throws Exception {
         // must be posted as application/json
 
-        System.out.println(String.format("Auth Request [user: %s, pass: %s]",
-                dto.getUsername(), dto.getPassword())
-        );
+        System.out.printf("Auth Request [user: %s, pass: %s]%n",
+                dto.getUsername(), dto.getPassword());
 
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
