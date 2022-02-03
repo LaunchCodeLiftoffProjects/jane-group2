@@ -15,7 +15,7 @@ export default function Register() {
     return (
         <div>
             <Container className="card border-dark border-3 p-0 w-25 mt-5">
-                <h1 className="card-header border-dark border-3 display-3 m-0">Register</h1>
+                <h1 className="card-header border-dark border-3 display-3 m-0" style={{ "background-color": "#1ed5b4" }}>Register</h1>
                 <Formik
                     initialValues={{
                         username: '',

@@ -52,10 +52,18 @@ export default function App() {
                                 // if we are not logged in
                                 ? <div className="d-flex">
                                     <LinkContainer to="/login">
-                                        <NavLink className="text-dark" to="/login">Login</NavLink>
+                                        <NavLink className="text-dark" to="/login">
+                                            <div className="btn btn-dark">
+                                                Login
+                                            </div>
+                                        </NavLink>
                                     </LinkContainer>
                                     <LinkContainer to="/register">
-                                        <NavLink className="text-dark" to="/register">Register</NavLink>
+                                        <NavLink className="text-dark" to="/register">
+                                            <div className="btn btn-dark">
+                                                Register
+                                            </div>
+                                        </NavLink>
                                     </LinkContainer>
                                 </div>
                                 // if we are logged in
