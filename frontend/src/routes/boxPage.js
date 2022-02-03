@@ -24,10 +24,13 @@ export default function BoxPage() {
 
     return (
         <div className="centered">
-            {!user ?
+            {!user
+                ?
                 <div>
-                    <h1>Login to see your boxes!</h1> :
-                </div> :
+                    <br/>
+                    <h1 className="nice-font">Login to see your boxes!</h1>
+                </div>
+                :
                 <div>
                     {/* <h4>Welcome {user.username}!</h4> */}
                     <BoxPageContent />

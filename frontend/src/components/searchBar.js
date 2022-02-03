@@ -8,7 +8,10 @@ export default function SearchBar() {
 
   const onSearch = (e) => {
     e.preventDefault();
-    navigate(`/search/${search}`, { replace: true });
+    if (search) {
+      navigate(`/search/${search}`, { replace: true });
+      setSearch("");
+    }
   }
 
   return (

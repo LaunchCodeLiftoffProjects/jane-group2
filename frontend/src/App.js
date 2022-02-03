@@ -52,17 +52,29 @@ export default function App() {
                                 // if we are not logged in
                                 ? <div className="d-flex">
                                     <LinkContainer to="/login">
-                                        <NavLink className="text-dark" to="/login">LOGIN</NavLink>
+                                        <NavLink className="text-dark" to="/login">
+                                            <div className="btn btn-dark">
+                                                Login
+                                            </div>
+                                        </NavLink>
                                     </LinkContainer>
                                     <LinkContainer to="/register">
-                                        <NavLink className="text-dark" to="/register">REGISTER</NavLink>
+                                        <NavLink className="text-dark" to="/register">
+                                            <div className="btn btn-dark">
+                                                Register
+                                            </div>
+                                        </NavLink>
                                     </LinkContainer>
                                 </div>
                                 // if we are logged in
                                 :
-                                <div className="d-flex">
+                                <div className="d-flex justify-content-start">
+                                    <img style={{ margin: "auto", height: 35 }} src={process.env.PUBLIC_URL + "/images/profile.png"} alt="..." />
+                                    <div className="p-2">
+                                        <h6 style={{ margin: "auto" }} className="nice-font">{user.username}</h6>
+                                    </div>
                                     <SearchBar/>
-                                    <button className="btn btn-dark" onClick={logout} style={{ float: "right" }}><strong>LOGOUT</strong></button>
+                                    <button className="btn btn-dark" onClick={logout} style={{ float: "right" }}>Logout</button>
                                 </div>
 
                             }
