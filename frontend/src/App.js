@@ -61,7 +61,7 @@ export default function App() {
                                 // if we are logged in
                                 :
                                 <div className="d-flex">
-                                    <Search />
+                                    <SearchBar/>
                                     <button className="btn btn-dark" onClick={logout} style={{ float: "right" }}><strong>LOGOUT</strong></button>
                                 </div>
 

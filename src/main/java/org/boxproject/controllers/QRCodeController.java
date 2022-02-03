@@ -41,22 +41,22 @@ public class QRCodeController {
         // B) unique ID of the box for an app to read and display the items with an API request
         // since we are not hosting the project and it's not a phone app yet...
         // let's simply list the items within the box
-        String qrCodeContents = "No Items";
+        StringBuilder bldr = new StringBuilder();
 
         Optional<Box> box = boxRepository.findById(boxId);
         if (box.isPresent()) {
+            bldr.append("ID: ").append(box.get().getId()).append("\n");
+            bldr.append("Name: ").append(box.get().getLabelName()).append("\n");
             List<BoxItem> items = box.get().getBoxItems();
             if (items.size() > 0) {
-                StringBuilder bldr = new StringBuilder();
                 for(BoxItem item : box.get().getBoxItems()) {
-                    bldr.append(String.format("%s\n", item.getItemName()));
+                    bldr.append(item.getItemName()).append("\n");
                 }
-                qrCodeContents = bldr.toString();
             }
         }
 
         // generate the qr code
-        BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeContents.getBytes(CHARSET), CHARSET), BarcodeFormat.QR_CODE, 250, 250);
+        BitMatrix matrix = new MultiFormatWriter().encode(new String(bldr.toString().getBytes(CHARSET), CHARSET), BarcodeFormat.QR_CODE, 250, 250);
         BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(matrix);
 
         // write the buffered image to png format in-memory

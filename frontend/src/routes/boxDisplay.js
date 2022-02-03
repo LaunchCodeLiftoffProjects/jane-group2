@@ -37,49 +37,52 @@ export default function BoxDisplay() {
     }
 
     return (
-        <div className="card container p-0 border border-dark border-3">
-            <div className="card-header border-dark border-3" style={{ "background-color": boxDetails.labelColor }}>
-                <div className="box-header">
-                    <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
-                    <h1 id="box-header-text">{boxDetails.labelName}</h1>
+        <div>
+            <br/>
+            <div className="card container p-0 border border-dark border-3">
+                <div className="card-header border-dark border-3" style={{ "background-color": boxDetails.labelColor }}>
+                    <div className="box-header">
+                        <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
+                        <h1 id="box-header-text">{boxDetails.labelName}</h1>
 
-                    <QRCode id='spacer' boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
+                        <QRCode id='spacer' boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
+                    </div>
                 </div>
-            </div>
 
-            <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
-                <h2 className="align-self-start">Items:</h2>
-                <table className="table table-hover table-striped border border-dark border-3">
-                    <thead>
-                        <tr>
-                            <th scope="col"><strong>Id</strong></th>
-                            <th scope="col"><strong>Name</strong></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {boxItems.map(item => (
-                            <tr className="" key={item.id}>
-                                <th className="lead" scope="row">{item.id}</th>
-                                <td className="lead">{item.itemName}</td>
+                <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
+                    <h2 className="align-self-start">Items</h2>
+                    <table className="table table-hover table-striped border border-dark border-3">
+                        <thead>
+                            <tr>
+                                <th scope="col"><strong>Id</strong></th>
+                                <th scope="col"><strong>Name</strong></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {boxItems.map(item => (
+                                <tr className="" key={item.id}>
+                                    <th className="lead" scope="row">{item.id}</th>
+                                    <td className="lead">{item.itemName}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
 
-                <div>
-                    <QRCode boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
+                    <div>
+                        <QRCode boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
+                    </div>
                 </div>
-            </div>
 
-            <div className="d-flex justify-content-center align-items-center">
-                <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/`}><strong>Go Back</strong></Link>
-                <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Change Items</strong></Link>
-                <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={changeColor}><strong>Change Color</strong></button>
-                <ReactToPrint
-                    trigger={() => <button className="btn btn-lg btn-dark m-2" id="deleteBtn"><strong>Print QR Code</strong></button>}
-                    content={() => qrCodeRef.current}
-                />
-                <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={boxDeletion}><strong>Delete</strong></button>
+                <div className="d-flex justify-content-center align-items-center">
+                    <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/`}><strong>Go Back</strong></Link>
+                    <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Change Items</strong></Link>
+                    <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={changeColor}><strong>Change Color</strong></button>
+                    <ReactToPrint
+                        trigger={() => <button className="btn btn-lg btn-dark m-2" id="deleteBtn"><strong>Print QR Code</strong></button>}
+                        content={() => qrCodeRef.current}
+                    />
+                    <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={boxDeletion}><strong>Delete</strong></button>
+                </div>
             </div>
         </div>
     );
