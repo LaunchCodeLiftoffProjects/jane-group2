@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Outlet } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
   
@@ -7,7 +7,6 @@ export default function SearchBar() {
   const [search, setSearch] = useState();
 
   const onSearch = (e) => {
-    console.log('hello');
     e.preventDefault();
     navigate(`/search/${search}`, { replace: true });
   }

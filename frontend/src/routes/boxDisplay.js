@@ -4,9 +4,7 @@ import { deleteBox, getBoxById, randomizeBoxColor } from '../services/boxService
 import { getQRCode } from '../services/qrCodeService';
 import ReactToPrint from "react-to-print";
 import { QRCode } from "../components/qrCode";
-import { HexColorPicker } from "react-colorful";
 import "../routes/boxDisplay.css";
-import ReactImageAppear from 'react-image-appear';
 
 export default function BoxDisplay() {
 
