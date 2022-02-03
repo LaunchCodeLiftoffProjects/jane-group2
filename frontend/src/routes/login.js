@@ -21,7 +21,7 @@ export default function Login() {
     return (
         <div>
             <Container className="card border-3 border-dark p-0 w-25 mt-5">
-                <h1 className="card-header border-dark border-3 display-3 m-0" style={{ "background-color": "#1ed5b4" }}>Login</h1>
+                <h1 className="card-header border-dark border-3 display-3 m-0" style={{ "background-color": "#e6dfc8" }}>Login</h1>
                 <Formik
                     initialValues={{
                         username: '',
