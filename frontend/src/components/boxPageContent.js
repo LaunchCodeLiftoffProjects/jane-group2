@@ -42,8 +42,6 @@ export default function BoxPageContent() {
     const handleCategoryAdd = event => {
         event.preventDefault();
 
-        console.log(categoryName);
-
         createCategory({ categoryName }).then(() => {
             setCategoryName('');
             updateCategories();
