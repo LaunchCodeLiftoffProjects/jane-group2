@@ -33,7 +33,7 @@ export default function SearchPage() {
   if (isLoading) {
     resultMessage = 
     <div>
-        <h5>Loading...</h5>
+        <h5 className="nice-font">Loading...</h5>
     </div>;
   } else {
     resultMessage =
@@ -52,7 +52,7 @@ export default function SearchPage() {
             </div>
             )
           : <div>
-              <h5>We found no matches for '{searchTerm}''</h5>
+              <h5 className="nice-font">We found no matches for '{searchTerm}'</h5>
             </div>
         }
     </div>;
