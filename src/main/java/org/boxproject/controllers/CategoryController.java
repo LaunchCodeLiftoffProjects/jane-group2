@@ -52,6 +52,7 @@ public class CategoryController {
         final BoxUser boxUser = boxUserService.getBoxUser();
         final Category newCategory = new Category(payload.getCategoryName());
 
+        System.out.println("name " + payload.getCategoryName());
         newCategory.setBoxUser(boxUser);
         categoryRepository.save(newCategory);
 
