@@ -46,7 +46,7 @@ export default function BoxPageContent() {
     const handleSidebarCategoryAdd = event => {
         event.preventDefault();
 
-        createCategory({ sidebarCategoryName }).then(() => {
+        createCategory({ categoryName: sidebarCategoryName }).then(() => {
             setSidebarCategoryName('');
             updateSidebarCategoryList();
         });
