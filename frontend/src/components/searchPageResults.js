@@ -22,7 +22,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     updateBoxSearch();
-  }, []);
+  }, [searchTerm]);
 
   const handleChange = (event) => {
     setLabelName(event.target.value);

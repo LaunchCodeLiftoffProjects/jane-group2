@@ -11,10 +11,9 @@ import reportWebVitals from './reportWebVitals';
 import Register from './routes/register';
 import BoxDisplay from './routes/boxDisplay';
 import TestAuth from "./routes/testAuthPage";
-import SearchPageResults from './components/searchPageResults';
-import Category from './components/category';
 import Forgot from './routes/forgot'
 import EditBoxDetails from './routes/editBoxDetails';
+import SearchPageResults from './components/searchPageResults';
 
 render(
   <BrowserRouter>
@@ -27,7 +26,6 @@ render(
         <Route path="boxDisplay/:boxId/edit" element={<EditBoxDetails />} />
         <Route path="testAuth" element={<TestAuth />} />
         <Route path="forgot" element={<Forgot />} />
-        <Route path="category" element={<Category />} />
         <Route path="search/:searchTerm" element={<SearchPageResults />} />
       </Route>
     </Routes>

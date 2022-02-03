@@ -8,7 +8,7 @@ import '../App.css';
 import { authService } from '../services/auth';
 
 export default function TestAuth() {
-    const [text, setText] = useState(null);
+    const [text, setText] = useState("");
 
     useEffect(() => {
         fetch("api/testWithAuth", {
@@ -25,7 +25,7 @@ export default function TestAuth() {
         <div className="centered">
             <Container>
                 <h1>If you're seeing this, you are logged in and authorized to the backend.</h1>
-                {text &&
+                {
                     <div>
                         <b>Message</b>
                         <p>{text}</p>

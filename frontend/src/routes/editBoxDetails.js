@@ -17,9 +17,9 @@ export default function EditBoxDetails() {
 
     const displayEditPage = useCallback(
         () => {
-            getBoxById(boxId).then(json => {
-                setBoxItems(json.boxItems);
-                setLabelName(json.labelName);
+            getBoxById(boxId).then(retrievedBox => {
+                setBoxItems(retrievedBox.boxItems);
+                setLabelName(retrievedBox.labelName);
             });
         },
         [boxId]

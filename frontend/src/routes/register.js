@@ -23,8 +23,8 @@ export default function Register() {
                     }}
                     validationSchema={Yup.object().shape({
                         email: Yup.string()
-                            .required('Email is required.')
-                            .email('Must be a valid email.'),
+                        .required('Email is required.')
+                        .email('Must be a valid email.'),
                         username: Yup.string()
                             .required('Username is required.')
                             .min(4, 'Username is too short, should be 4 characters minimum.'),
@@ -58,6 +58,7 @@ export default function Register() {
                                 <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
                                 <ErrorMessage name="email" component="div" className="invalid-feedback" />
                             </div>
+
                             <div className="form-auth-group text-start px-5">
                                 <label className="lead" htmlFor="username">Username</label>
                                 <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
