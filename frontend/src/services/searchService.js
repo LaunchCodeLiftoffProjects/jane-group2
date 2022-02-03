@@ -1,4 +1,5 @@
 import { authService } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 export async function searchAllBoxes() {
   try {
@@ -54,4 +55,12 @@ export async function searchBoxes(term) {
     console.error(error);
     return [];
   }
+}
+
+function SearchAllBoxes(){
+let navigate = useNavigate();
+async function handleSubmit(event) {
+  event.preventDefault();
+  navigate("/box/search");
+  };
 }

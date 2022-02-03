@@ -32,11 +32,12 @@ export default function SearchPage() {
     event.preventDefault();
   };
 
+
   return (
     <div className="container">
-        {boxList && boxList.length > 0 ? (
-            <ul>
-            {boxList.map((box) => (
+      {boxList && boxList.length > 0 ? (
+        <ul>
+          {boxList.map((box) => (
             <li className="card" style={{ listStyle: "none" }} key={box.id}>
               <Link
                 to={{
