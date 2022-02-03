@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { deleteBox, getBoxById, randomizeBoxColor } from '../services/boxService';
 import { getQRCode } from '../services/qrCodeService';
 import ReactToPrint from "react-to-print";
@@ -16,11 +16,15 @@ export default function BoxDisplay() {
 
     const qrCodeRef = useRef();
 
-    useEffect(async () => {
+    const updateBoxState = async () => {
         setBoxDetails(await getBoxById(boxId));
         setBoxItems(await getBoxById(boxId).then(box => box.boxItems));
         setQRCode(await getQRCode(boxId).then(qrCode => qrCode.base64));
-    }, [boxId]);
+    }
+
+    useEffect(() => {
+        updateBoxState();
+    }, []);
 
     const boxDeletion = async (event) => {
         await deleteBox(boxId);
@@ -33,7 +37,7 @@ export default function BoxDisplay() {
 
     return (
         <div>
-            <br/>
+            <br />
             <div className="card container p-0 border border-dark border-3">
                 <div className="card-header border-dark border-3" style={{ "background-color": boxDetails.labelColor }}>
                     <div className="box-header">

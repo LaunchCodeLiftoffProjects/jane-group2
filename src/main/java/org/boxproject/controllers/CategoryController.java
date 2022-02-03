@@ -22,7 +22,6 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
     @GetMapping
     public Iterable<Category> retrieveCategories() throws Exception {
         return boxUserService.getBoxUser().getCategories();

@@ -27,12 +27,11 @@ export default function BoxPage() {
             {!user
                 ?
                 <div>
-                    <br/>
+                    <br />
                     <h1 className="nice-font">Login to see your boxes!</h1>
                 </div>
                 :
                 <div>
-                    {/* <h4>Welcome {user.username}!</h4> */}
                     <BoxPageContent />
                 </div>
             }
