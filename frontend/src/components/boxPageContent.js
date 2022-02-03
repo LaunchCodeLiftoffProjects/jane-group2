@@ -17,7 +17,7 @@ export default function BoxPageContent() {
     const [selectCategoryList, setSelectCategoryList] = useState([]);
 
     const [sidebarCategoryList, setSidebarCategoryList] = useState([]);
-    const [sidebarCategoryName, setSidebarCategoryName] = useState("");
+    const [categoryName, setCategoryName] = useState("");
 
     const updateCategories = async () => {
         setSidebarCategoryList(await getAllCategories());
