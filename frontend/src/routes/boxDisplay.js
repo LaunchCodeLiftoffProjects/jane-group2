@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { deleteBox, getBoxById, randomizeBoxColor } from '../services/boxService';
 import { getQRCode } from '../services/qrCodeService';
-import { Button } from "react-bootstrap";
 import ReactToPrint from "react-to-print";
 import { QRCode } from "../components/qrCode";
 import { HexColorPicker } from "react-colorful";
@@ -16,7 +15,7 @@ export default function BoxDisplay() {
     const [boxDetails, setBoxDetails] = useState({});
     const [boxItems, setBoxItems] = useState([]);
     const [qrCode, setQRCode] = useState();
-    
+
     const [color, setColor] = useState();
     const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -31,7 +30,7 @@ export default function BoxDisplay() {
     const boxDeletion = async (event) => {
         await deleteBox(boxId);
         navigate('/', { replace: true });
-    }
+    };
 
     const changeColor = async () => {
         setBoxDetails(await randomizeBoxColor(boxId));
@@ -41,16 +40,16 @@ export default function BoxDisplay() {
         <div className="card container p-0 border border-dark border-3">
             <div className="card-header border-dark border-3" style={{ "background-color": boxDetails.labelColor }}>
                 <div className="box-header">
-                    <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..."/>
+                    <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
                     <h1 id="box-header-text">{boxDetails.labelName}</h1>
 
-                    <QRCode id='spacer' boxId={boxId} qrCode={qrCode} ref={qrCodeRef}/>
+                    <QRCode id='spacer' boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
                 </div>
             </div>
 
             <div className="card-body d-flex flex-column justify-content-center w-50 align-self-center">
                 <h2 className="align-self-start">Items:</h2>
-                <table class="table table-hover table-striped border border-dark border-3">
+                <table className="table table-hover table-striped border border-dark border-3">
                     <thead>
                         <tr>
                             <th scope="col"><strong>Id</strong></th>
@@ -68,7 +67,7 @@ export default function BoxDisplay() {
                 </table>
 
                 <div>
-                    <QRCode boxId={boxId} qrCode={qrCode} ref={qrCodeRef}/>
+                    <QRCode boxId={boxId} qrCode={qrCode} ref={qrCodeRef} />
                 </div>
             </div>
 

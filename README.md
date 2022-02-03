@@ -23,8 +23,9 @@ How many times have you placed a box in storage and not know where its placed?
 - Java
 - Spring Boot
 - MySQL
+- JSON Web Tokens
 ### What I'll Have to Learn
 - React
-- Search & Sort algorithms
+- JSON Web Tokens
 ### Project Tracker
 [Our Trello board](https://trello.com/b/x4vefHy2/box-project)

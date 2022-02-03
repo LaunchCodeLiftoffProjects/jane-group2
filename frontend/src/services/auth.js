@@ -25,12 +25,12 @@ function register(email, username, password, verifyPassword) {
             verifyPassword: verifyPassword,
         })
     })
-    .then(evaluate)
-    //.then(response => response.json())
-    .then(success => {
-        console.log('got ' + success);
-        return success;
-    });
+        .then(evaluate)
+        //.then(response => response.json())
+        .then(success => {
+            console.log('got ' + success);
+            return success;
+        });
 }
 
 function login(username, password) {
@@ -42,18 +42,18 @@ function login(username, password) {
             password: password
         })
     })
-    .then(evaluate)
-    //.then(response => response.json())
-    .then(success => {
-        console.log('msg: ' + success.message);
-        console.log('username: ' + success.user.username);
-        console.log('token: ' + success.user.token);
+        .then(evaluate)
+        //.then(response => response.json())
+        .then(success => {
+            console.log('msg: ' + success.message);
+            console.log('username: ' + success.user.username);
+            console.log('token: ' + success.user.token);
 
-        localStorage.setItem('box-project-user', JSON.stringify(success.user));
-        currentUserSubject.next(success.user);
+            localStorage.setItem('box-project-user', JSON.stringify(success.user));
+            currentUserSubject.next(success.user);
 
-        return success;
-    });
+            return success;
+        });
 }
 
 function logout() {

@@ -18,6 +18,7 @@ export async function getAllBoxes() {
                         "id": box.id,
                         "labelName": box.labelName,
                         "labelColor": box.labelColor,
+                        "catId": box.catId
                     });
                 }
                 return boxes;

@@ -3,14 +3,9 @@ package org.boxproject.models.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-public class BoxDTO {
+public class CategoryDTO {
 
     @Getter
     @Setter
-    private String labelName;
-
-    @Getter
-    @Setter
-    private long catId;
-
+    private String categoryName;
 }
