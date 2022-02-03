@@ -11,6 +11,8 @@ public class BoxItem extends AbstractEntity {
     @NotNull
     private String itemName;
 
+    private int itemQuantity;
+
     @ManyToOne
     @JsonIgnore
     private Box box;
@@ -19,6 +21,7 @@ public class BoxItem extends AbstractEntity {
 
     public BoxItem(String itemName) {
         this.itemName = itemName;
+        this.itemQuantity = 1;
     }
 
     public String getItemName() {
@@ -27,6 +30,14 @@ public class BoxItem extends AbstractEntity {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
     public Box getBox() {

@@ -15,13 +15,16 @@ export default function Register() {
     return (
         <div>
             <Container className="card border-dark border-3 p-0 w-25 mt-5">
-                <h1 className="card-header border-dark border-3 display-3 m-0">Register</h1>
+                <h1 className="card-header border-dark border-3 display-3 m-0" id="form-header">Register</h1>
                 <Formik
                     initialValues={{
                         username: '',
                         password: ''
                     }}
                     validationSchema={Yup.object().shape({
+                        email: Yup.string()
+                        .required('Email is required.')
+                        .email('Must be a valid email.'),
                         username: Yup.string()
                             .required('Username is required.')
                             .min(4, 'Username is too short, should be 4 characters minimum.'),
@@ -49,6 +52,12 @@ export default function Register() {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form className="card-body">
+
+                            <div className="form-auth-group text-start px-5">
+                                <label className="lead" htmlFor="email">Email</label>
+                                <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                                <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                            </div>
 
                             <div className="form-auth-group text-start px-5">
                                 <label className="lead" htmlFor="username">Username</label>

@@ -3,6 +3,7 @@ package org.boxproject.controllers;
 import org.boxproject.models.Box;
 import org.boxproject.models.BoxItem;
 import org.boxproject.models.BoxUser;
+import org.boxproject.models.RegistrationResponse;
 import org.boxproject.models.Category;
 import org.boxproject.models.data.BoxItemRepository;
 import org.boxproject.models.data.BoxRepository;
@@ -12,6 +13,7 @@ import org.boxproject.models.dto.BoxDTO;
 import org.boxproject.models.dto.BoxItemDTO;
 import org.boxproject.security.BoxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -120,6 +122,20 @@ public class BoxController {
 
         boxItemRepository.deleteById(payload.getBoxItemId());
         return ResponseEntity.ok(boxItemRepository.findById(payload.getBoxItemId()));
+    }
+
+    @PostMapping("{boxId}/randomizeColor")
+    public ResponseEntity<Box> processRandomizeBoxColor(@PathVariable Long boxId) throws Exception {
+        final Box box = boxRepository.findById(boxId).orElse(null);
+
+        if (box == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        box.setLabelColor(generateRandomHexColor());
+        boxRepository.save(box);
+
+        return ResponseEntity.ok(box);
     }
 
     // TODO: bound these in a special range, or perhaps hand select colors and pop them from a queue before wrapping the queue

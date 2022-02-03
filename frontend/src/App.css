@@ -90,3 +90,7 @@ body {
 .color-picker {
   position: fixed
 }
+
+#form-header {
+  background-color: #e6dfc8;
+}
