@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { createBox, getAllBoxes } from "../services/boxService";
-import { createCategory, getAllCategories } from "../services/categoryService";
+import { createCategory, deleteCategory, getAllCategories } from "../services/categoryService";
 
 export default function BoxPageContent() {
 
@@ -14,13 +14,14 @@ export default function BoxPageContent() {
 
 
     const [catId, setCatId] = useState(null);
-    const [formCategories, setFormCategories] = useState([]);
+    const [selectCategoryList, setSelectCategoryList] = useState([]);
 
     const [sidebarCategoryList, setSidebarCategoryList] = useState([]);
-    const [sidebarCategoryName, setSidebarCategoryName] = useState("");
+    const [categoryName, setCategoryName] = useState("");
 
-    const updateSidebarCategoryList = async () => {
+    const updateCategories = async () => {
         setSidebarCategoryList(await getAllCategories());
+        setSelectCategoryList(await getAllCategories());
     };
 
     const updateBoxList = async () => {
@@ -28,29 +29,34 @@ export default function BoxPageContent() {
         setBoxList(allBoxes);
     };
 
-    const updateFormCategories = async () => {
-        setFormCategories(await getAllCategories());
-    };
-
     useEffect(() => {
-        updateSidebarCategoryList();
+        updateCategories();
         updateBoxList();
-        updateFormCategories();
     }, []);
 
     // Sidebar Category methods
-    const handleSidebarCategoryNameChange = event => {
-        setSidebarCategoryName(event.target.value);
+    const handleCategoryNameChange = event => {
+        setCategoryName(event.target.value);
     };
 
-    const handleSidebarCategoryAdd = event => {
+    const handleCategoryAdd = event => {
         event.preventDefault();
 
-        createCategory({ sidebarCategoryName }).then(() => {
-            setSidebarCategoryName('');
-            updateSidebarCategoryList();
+        console.log(categoryName);
+
+        createCategory({ categoryName }).then(() => {
+            setCategoryName('');
+            updateCategories();
         });
     };
+
+    const handleCategoryDeletion = event => {
+        event.preventDefault();
+
+        deleteCategory(event.target.value).then(() => {
+            updateCategories();
+        });
+    }
 
     // Box methods
     const handleLabelNameChange = event => {
@@ -74,42 +80,55 @@ export default function BoxPageContent() {
         <div className="d-flex">
             <div>
 
-                <div>
+                <div className="m-3">
 
-                    <h1>Categories</h1>
+                    <h3>Categories</h3>
 
-                    <form className="input-group" onSubmit={handleSidebarCategoryAdd}>
-                        <input className="form-control" type="text" value={sidebarCategoryName} onChange={handleSidebarCategoryNameChange} />
-                        <button className="btn btn-dark" type="submit" onClick={handleSidebarCategoryAdd}>Create</button>
+                    <form className="input-group" onSubmit={handleCategoryAdd}>
+                        <input className="form-control" type="text" value={categoryName} onChange={handleCategoryNameChange} />
+                        <button className="btn btn-dark" type="submit" onClick={handleCategoryAdd}>Create</button>
                     </form>
 
                 </div>
 
                 <div className="container-fluid mx-2">
-                    <div className="d-flex flex-column mt-5 mx-3">
+                    <div className="d-flex flex-column mt-5">
 
                         <button
                             className="btn btn-dark mb-2"
                             value="all"
+                            type="button"
                             onClick={updateBoxList}
                         >
                             All Boxes
                         </button>
                         {sidebarCategoryList.map(category => (
-                            <button
-                                className="btn btn-dark mb-2"
-                                key={category.id}
-                                value={category.id}
+                            <div
+                                className="btn input-group mb-2"
+                                key={category.id} value={category.id}
                                 onClick={async (event) => {
                                     const allBoxes = await getAllBoxes();
 
                                     setBoxList(allBoxes.filter(box => {
                                         return box.catId === Number(event.target.value);
                                     }));
-                                }}
-                            >
-                                {category.categoryName}
-                            </button>
+                                }}>
+                                <button
+                                    className="btn btn-outline-dark"
+                                    value={category.id}
+
+                                >
+                                    {category.categoryName}
+                                </button>
+                                <button
+                                    className="btn btn-dark"
+                                    type="button"
+                                    value={category.id}
+                                    onClick={handleCategoryDeletion}
+                                >
+                                    X
+                                </button>
+                            </div>
                         ))}
 
                     </div>
@@ -122,11 +141,17 @@ export default function BoxPageContent() {
 
                     <div className="input-group w-50">
 
-                        <input className="form-control" type="text" value={labelName} onChange={handleLabelNameChange} />
+                        <input className="form-control" type="text" value={labelName} onChange={handleLabelNameChange} required />
 
-                        <select className="form-select" name="categories" id="categories" onChange={handleCategoryChange}>
-                            <option value="">--Please choose a category--</option>
-                            {formCategories.map(category => (
+                        <select
+                            className="form-select"
+                            name="categories"
+                            id="categories"
+                            onChange={handleCategoryChange}
+                            required
+                        >
+                            <option selected disabled value="">--Please choose a category--</option>
+                            {selectCategoryList.map(category => (
                                 <option key={category.id} value={category.id}>
                                     {category.categoryName}
                                 </option>

@@ -40,8 +40,7 @@ export async function deleteCategory(categoryId) {
             }
         })
             .then(response => {
-                console.log('Category deleted!');
-                return authService.evaluate(response);
+                console.log(response);
             });
     } catch (error) {
         console.log(error);
