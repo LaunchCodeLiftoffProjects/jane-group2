@@ -10,12 +10,12 @@ import { Container, Navbar, NavbarBrand, NavLink } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import './App.css';
 import { authService } from "./services/auth"
-import Search from "./components/search";
+import SearchBar from "./components/searchBar";
 
 export default function App() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
     useEffect(() => {
         let subscription = authService.currentUser.subscribe((authUser) => {
@@ -26,10 +26,10 @@ export default function App() {
         };
     }, [user]);
 
-    const logout = () => {
-        authService.logout();
-        navigate("/", { replace: true });
-    }
+  const logout = () => {
+      authService.logout();
+      navigate("/", { replace: true });
+  }
 
     return (
         <div className="centered">
@@ -76,5 +76,4 @@ export default function App() {
 
         </div>
     );
-
 }
