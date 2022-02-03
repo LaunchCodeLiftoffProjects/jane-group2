@@ -26,10 +26,7 @@ render(
         <Route path="boxDisplay/:boxId/edit" element={<EditBoxDetails />} />
         <Route path="testAuth" element={<TestAuth />} />
         <Route path="forgot" element={<Forgot />} />
-<<<<<<< HEAD
         <Route path="search/:searchTerm" element={<SearchPageResults />} />
-=======
->>>>>>> 8da6b107715ddf827ae2d7a6466e7339e8398a16
       </Route>
     </Routes>
   </BrowserRouter>,
