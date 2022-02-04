@@ -81,7 +81,7 @@ export default function BoxDisplay() {
 
                 <div className="d-flex justify-content-center align-items-center">
                     <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={() => navigate(-1)}><strong>Go Back</strong></button>
-                    <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Change Items</strong></Link>
+                    <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Update Items</strong></Link>
                     <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={changeColor}><strong>Change Color</strong></button>
                     <ReactToPrint
                         trigger={() => <button className="btn btn-lg btn-dark m-2" id="deleteBtn"><strong>Print QR Code</strong></button>}
