@@ -1,8 +1,8 @@
 ## Overview
 - How much of your time have you spent looking for your belongings from a previous move or in your storage?
 - How often have you put something of your's away and forgotten where it is?
-- With "Box Project" that's all taken care of. 
 
+> With "Box Project" that's all taken care of. 
 > Upon creating an account with us, you can add boxes in our app and update the contents.
 > We keep track of everything that's in your boxes for you so you can stay organized.
 > We automatically color-code your boxes and generate QR codes for you to print out.
