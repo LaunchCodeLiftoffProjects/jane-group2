@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { authService } from '../services/auth';
 import {
     Link,
@@ -19,8 +18,8 @@ export default function Login() {
     console.log('coming to login page from: ' + from);
 
     return (
-        <div>
-            <Container className="card border-3 border-dark p-0 w-25 mt-5">
+        <div className="d-flex justify-content-center">
+            <div className="card border-3 border-dark p-0 w-25 mt-5">
                 <h1 className="card-header border-dark border-3 display-3 m-0" id="form-header">Login</h1>
                 <Formik
                     initialValues={{
@@ -70,7 +69,7 @@ export default function Login() {
                     <p className="mb-0">Don't already have an account? <Link to="/register">Register</Link></p>
                     <Link to="/">Back to home page</Link>
                 </div>
-            </Container>
+            </div>
         </div>
 
 

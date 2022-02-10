@@ -1,33 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
 
-export default function forgot(){
-
+export default function forgot() {
 
 
 
 
- return (
+
+    return (
         <div>
-            <Container>
+            <div className="container">
                 <h1>Forgot Password</h1>
 
-                <Form>
-                    <Form.Group className="mb-3" controlId="formUsername">
-                        <Form.Control size="lg" type="text" placeholder="Username" name="username" />
-                    </Form.Group>
+                <form>
+                    <div className="mb-3" controlId="formUsername">
+                        <input size="lg" type="text" placeholder="Username" name="username" />
+                    </div>
 
 
 
-                    <Button type="submit" variant="primary">Submit</Button>
-                </Form>
+                    <button type="submit" variant="primary">Submit</button>
+                </form>
 
                 <p>"Don't already have an account?" <Link to="/register">Register here!</Link></p>
                 <Link to="/">Back to home page</Link>
-            </Container>
+            </div>
         </div>
 
 
     );
- }
+}

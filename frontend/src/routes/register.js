@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { authService } from '../services/auth';
 import {
     Link,
@@ -13,8 +12,8 @@ export default function Register() {
     const navigate = useNavigate();
 
     return (
-        <div>
-            <Container className="card border-dark border-3 p-0 w-25 mt-5">
+        <div className="d-flex justify-content-center">
+            <div className="card border-dark border-3 p-0 w-25 mt-5">
                 <h1 className="card-header border-dark border-3 display-3 m-0" id="form-header">Register</h1>
                 <Formik
                     initialValues={{
@@ -23,8 +22,8 @@ export default function Register() {
                     }}
                     validationSchema={Yup.object().shape({
                         email: Yup.string()
-                        .required('Email is required.')
-                        .email('Must be a valid email.'),
+                            .required('Email is required.')
+                            .email('Must be a valid email.'),
                         username: Yup.string()
                             .required('Username is required.')
                             .min(4, 'Username is too short, should be 4 characters minimum.'),
@@ -95,7 +94,7 @@ export default function Register() {
                     <Link to="/">Back to home page</Link>
                 </div>
 
-            </Container>
+            </div>
         </div>
     );
 }
