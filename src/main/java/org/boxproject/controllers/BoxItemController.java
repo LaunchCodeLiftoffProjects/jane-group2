@@ -1,7 +1,6 @@
 package org.boxproject.controllers;
 
 import org.boxproject.models.BoxItem;
-import org.boxproject.models.BoxUser;
 import org.boxproject.models.data.BoxItemRepository;
 import org.boxproject.models.data.BoxRepository;
 import org.boxproject.models.data.BoxUserRepository;
@@ -43,10 +42,7 @@ public class BoxItemController {
     }
 
     @DeleteMapping("{itemId}")
-    public @ResponseBody String processBoxItemDeletion(@PathVariable Long itemId, @RequestBody BoxItemDTO payload) throws Exception {
-
-        final BoxUser boxUser = boxUserService.getBoxUser();
-        final Optional<BoxItem> boxItemOptional = boxItemRepository.findById(itemId);
+    public @ResponseBody String processBoxItemDeletion(@PathVariable Long itemId) throws Exception {
 
         boxItemRepository.deleteById(itemId);
 
