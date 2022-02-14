@@ -10,12 +10,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import '../App.css';
 
 export default function Login() {
+
     const navigate = useNavigate();
     const location = useLocation();
 
     let from = location.state?.from?.pathname || "/";
-
-    console.log('coming to login page from: ' + from);
 
     return (
         <div className="d-flex justify-content-center">

@@ -4,13 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class BoxItem extends AbstractEntity {
+
     @NotNull
+    @NotBlank
     private String itemName;
 
+    @NotNull
     private int itemQuantity;
 
     @ManyToOne

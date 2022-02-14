@@ -73,7 +73,7 @@ public class BoxController {
     public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
         final Optional<Box> boxToAddItem = boxRepository.findById(boxId);
-        final BoxItem newItem = new BoxItem(payload.getBoxItemName());
+        final BoxItem newItem = new BoxItem(payload.getItemName());
 
         boxToAddItem.ifPresent(newItem::setBox);
 
@@ -95,7 +95,7 @@ public class BoxController {
         return ResponseEntity.ok(updateBox);
     }
 
-    @DeleteMapping("{boxId}")
+    @DeleteMapping("/{boxId}")
     public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
 
         final BoxUser boxUser = boxUserService.getBoxUser();
@@ -114,13 +114,30 @@ public class BoxController {
         return "Box Deleted";
     }
 
-    @DeleteMapping("{boxId}/edit")
-    public ResponseEntity<Optional<BoxItem>> processBoxItemDeletion(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+    @PutMapping("{boxItemId}")
+    public ResponseEntity<Optional<BoxItem>> processUpdateBoxItem(@PathVariable Long boxItemId, @RequestBody BoxItemDTO payload) throws Exception {
+
+        Optional<BoxItem> updatedBoxItemName = boxItemRepository.findById(boxItemId)
+                .map(boxItem -> {
+                    boxItem.setItemName(payload.getItemName());
+                    boxItem.setItemQuantity(payload.getItemQuantity());
+                    return boxItemRepository.save(boxItem);
+                });
+
+        return ResponseEntity.ok(updatedBoxItemName);
+    }
+
+    @DeleteMapping("{itemId}")
+    public @ResponseBody String processBoxItemDeletion(@PathVariable Long itemId, @RequestBody BoxItemDTO payload) throws Exception {
 
         final BoxUser boxUser = boxUserService.getBoxUser();
+        final Optional<BoxItem> boxItemOptional = boxItemRepository.findById(itemId);
 
-        boxItemRepository.deleteById(payload.getBoxItemId());
-        return ResponseEntity.ok(boxItemRepository.findById(payload.getBoxItemId()));
+        if (boxItemOptional.isPresent() && boxUser.getBoxes().contains(boxItemOptional.get())) {
+            boxItemRepository.deleteById(payload.getItemId());
+        }
+
+        return "Item deleted";
     }
 
     @PostMapping("{boxId}/randomizeColor")

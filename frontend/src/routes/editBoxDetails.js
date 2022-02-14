@@ -101,7 +101,8 @@ export default function EditBoxDetails() {
                                         <strong>X</strong>
                                     </button>
                                 </li>
-                            )) :
+                            ))
+                            :
                             <h4 className="">There are no items in this box!</h4>
                         }
                     </ul>

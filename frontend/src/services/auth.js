@@ -26,9 +26,7 @@ function register(email, username, password, verifyPassword) {
         })
     })
         .then(evaluate)
-        //.then(response => response.json())
         .then(success => {
-            console.log('got ' + success);
             return success;
         });
 }
@@ -43,12 +41,7 @@ function login(username, password) {
         })
     })
         .then(evaluate)
-        //.then(response => response.json())
         .then(success => {
-            console.log('msg: ' + success.message);
-            console.log('username: ' + success.user.username);
-            console.log('token: ' + success.user.token);
-
             localStorage.setItem('box-project-user', JSON.stringify(success.user));
             currentUserSubject.next(success.user);
 
