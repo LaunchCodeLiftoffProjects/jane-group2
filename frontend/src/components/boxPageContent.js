@@ -82,9 +82,10 @@ export default function BoxPageContent() {
 
                     <h3>Categories</h3>
 
-                    <form className="input-group" onSubmit={handleCategoryAdd}>
-                        <input className="form-control" type="text" value={sidebarCategoryName} onChange={handleCategoryNameChange} />
+                    <form className="input-group needs-validation" onSubmit={handleCategoryAdd}>
+                        <input className="form-control has-validation" type="text" value={sidebarCategoryName} onChange={handleCategoryNameChange} required />
                         <button className="btn btn-dark" type="submit" onClick={handleCategoryAdd}>Create</button>
+                        <div className="invalid-feedback">Category name is required</div>
                     </form>
 
                 </div>

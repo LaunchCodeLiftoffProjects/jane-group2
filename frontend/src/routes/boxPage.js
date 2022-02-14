@@ -27,8 +27,7 @@ export default function BoxPage() {
             {!user
                 ?
                 <div>
-                    <br />
-                    <h1 className="nice-font">Login to see your boxes!</h1>
+                    <h1 className="m-5 nice-font">Login to see your boxes!</h1>
                 </div>
                 :
                 <div>

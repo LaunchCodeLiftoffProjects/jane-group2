@@ -7,10 +7,14 @@ public class BoxItemDTO {
 
     @Getter
     @Setter
-    private Long boxItemId;
+    private Long itemId;
 
     @Getter
     @Setter
-    private String boxItemName;
+    private String itemName;
+
+    @Getter
+    @Setter
+    private int itemQuantity;
 
 }

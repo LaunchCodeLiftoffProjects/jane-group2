@@ -1,3 +1,6 @@
+/* This page may be eliminated completely due 
+to it being irrelevant to the project now */
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { editBox, getBoxById } from '../services/boxService';
@@ -40,7 +43,7 @@ export default function EditBoxDetails() {
     const handleAdd = async (event) => {
         event.preventDefault();
 
-        addItemToBox(boxId, { boxItemName }).then(response => {
+        addItemToBox(boxId, { boxItemName }).then(() => {
             setBoxItemName('');
             displayEditPage();
         });
@@ -101,7 +104,8 @@ export default function EditBoxDetails() {
                                         <strong>X</strong>
                                     </button>
                                 </li>
-                            )) :
+                            ))
+                            :
                             <h4 className="">There are no items in this box!</h4>
                         }
                     </ul>

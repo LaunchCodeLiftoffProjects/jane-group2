@@ -1,5 +1,6 @@
 import { authService } from "../services/auth";
 
+// TODO: Do we need this method?? getAllBoxes method from boxService.js does this already
 export async function searchAllBoxes() {
   try {
     return await fetch("/api/boxes", {
@@ -29,7 +30,6 @@ export async function searchAllBoxes() {
 
 export async function searchBoxes(term) {
   try {
-      console.log('fetch');
     return await fetch(`/api/search/${term}`, {
       method: "GET",
       headers: {
@@ -39,7 +39,6 @@ export async function searchBoxes(term) {
     })
       .then((response) => response.json())
       .then((json) => {
-          console.log('response ');
         let boxes = [];
         for (let box of json) {
           boxes.push({
