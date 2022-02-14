@@ -16,21 +16,21 @@ import EditBoxDetails from './routes/editBoxDetails';
 import SearchPageResults from './components/searchPageResults';
 
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<BoxPage />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="boxDisplay/:boxId" element={<BoxDisplay />} />
-        <Route path="boxDisplay/:boxId/edit" element={<EditBoxDetails />} />
-        <Route path="testAuth" element={<TestAuth />} />
-        <Route path="forgot" element={<Forgot />} />
-        <Route path="search/:searchTerm" element={<SearchPageResults />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
-  document.getElementById('root')
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<App />}>
+                <Route index element={<BoxPage />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="boxDisplay/:boxId" element={<BoxDisplay />} />
+                <Route path="boxDisplay/:boxId/edit" element={<EditBoxDetails />} />
+                <Route path="testAuth" element={<TestAuth />} />
+                <Route path="forgot" element={<Forgot />} />
+                <Route path="search/:searchTerm" element={<SearchPageResults />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

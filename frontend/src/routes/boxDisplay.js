@@ -43,10 +43,6 @@ export default function BoxDisplay() {
         setBoxDetails(await randomizeBoxColor(boxId));
     }
 
-    const handleItemNameToAddChange = event => {
-        setItemNameToAdd(event.target.value);
-    }
-
     const handleLabelNameChange = event => {
         setLabelName(event.target.value);
         editBox(boxId, { labelName: event.target.value });
@@ -117,7 +113,6 @@ export default function BoxDisplay() {
                             </thead>
                             <tbody>
                                 {boxItems.map(item => (
-                                    // TODO: Add onclick event to change to editable input fields and do away with update items page
                                     <tr key={item.id}>
                                         {!isEditing ?
                                             <>
@@ -136,10 +131,7 @@ export default function BoxDisplay() {
                                                         className="btn btn-sm btn-outline-dark border-3"
                                                         onClick={async (event) => {
                                                             event.preventDefault();
-                                                            await deleteBoxItem(item.id, {
-                                                                "itemName": item.itemName,
-                                                                "itemQuantity": item.itemQuantity
-                                                            });
+                                                            await deleteBoxItem(item.id);
                                                             await updateBoxState();
                                                         }}>
                                                         <strong>X</strong>
@@ -171,7 +163,7 @@ export default function BoxDisplay() {
                                     className="form-control"
                                     type="text"
                                     value={itemNameToAdd}
-                                    onChange={handleItemNameToAddChange}
+                                    onChange={event => setItemNameToAdd(event.target.value)}
                                 />
                                 <button
                                     className="btn btn-dark border-3"

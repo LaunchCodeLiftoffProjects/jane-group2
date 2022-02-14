@@ -13,10 +13,12 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenService {
+
     @Value("${security.jwt.token.secret:none}")
-    private String secret = "secret";
+    private final String secret = "secret";
+
     @Value("${security.jwt.token-expiry:1440}")
-    private long expiry = TimeUnit.DAYS.toMinutes(1);
+    private final long expiry = TimeUnit.DAYS.toMinutes(1);
 
     public boolean isValid(String token) {
         final Date expiration = getClaimFromToken(token, Claims::getExpiration);

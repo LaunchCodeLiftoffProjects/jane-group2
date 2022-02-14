@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+
     @Autowired
     public BoxUserRepository userRepository;
 

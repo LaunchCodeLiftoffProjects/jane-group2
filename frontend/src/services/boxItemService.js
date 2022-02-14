@@ -21,7 +21,7 @@ export async function addItemToBox(boxId, data) {
 
 }
 
-export async function deleteBoxItem(itemId, data) {
+export async function deleteBoxItem(itemId) {
 
     try {
         return await fetch(`/api/boxItems/${itemId}`, {
@@ -29,8 +29,7 @@ export async function deleteBoxItem(itemId, data) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authService.header()
-            },
-            body: JSON.stringify(data)
+            }
         })
             .then(response => response);
     } catch (error) {
