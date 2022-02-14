@@ -3,7 +3,7 @@ import { authService } from "../services/auth";
 export async function addItemToBox(boxId, data) {
 
     try {
-        return fetch(`/api/boxes/${boxId}/edit`, {
+        return fetch(`/api/boxes/${boxId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export async function addItemToBox(boxId, data) {
                 return json;
             });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
 }
@@ -24,7 +24,7 @@ export async function addItemToBox(boxId, data) {
 export async function deleteBoxItem(itemId, data) {
 
     try {
-        return await fetch(`/api/boxes/boxItems/${itemId}`, {
+        return await fetch(`/api/boxItems/${itemId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,10 +32,9 @@ export async function deleteBoxItem(itemId, data) {
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(json => console.log(json));
+            .then(response => response);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
 }
@@ -43,7 +42,7 @@ export async function deleteBoxItem(itemId, data) {
 export async function updateBoxItem(itemId, data) {
 
     try {
-        return await fetch(`/api/boxes/boxItems/${itemId}`, {
+        return await fetch(`/api/boxItems/${itemId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,7 +53,7 @@ export async function updateBoxItem(itemId, data) {
             .then(response => response.json())
             .then(json => console.log(json));
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
 }

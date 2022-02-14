@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { deleteBox, getBoxById, randomizeBoxColor } from "../services/boxService";
+import { deleteBox, editBox, getBoxById, randomizeBoxColor } from "../services/boxService";
 import { addItemToBox, deleteBoxItem } from "../services/boxItemService";
 import { getQRCode } from '../services/qrCodeService';
 import ReactToPrint from "react-to-print";
 import { QRCode } from "../components/qrCode";
 import "../routes/boxDisplay.css";
-import EditTRItemInputs from "../components/editItemNameInput";
+import EditTRItemInputs from "../components/editTRItemInputs";
 
 export default function BoxDisplay() {
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ export default function BoxDisplay() {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [boxItems, setBoxItems] = useState([]);
+    const [labelName, setLabelName] = useState("");
     const [qrCode, setQRCode] = useState();
     const [itemNameToAdd, setItemNameToAdd] = useState("");
 
@@ -24,6 +25,7 @@ export default function BoxDisplay() {
 
     const updateBoxState = useCallback(async () => {
         setBoxDetails(await getBoxById(boxId));
+        setLabelName(await getBoxById(boxId).then(box => box.labelName));
         setBoxItems(await getBoxById(boxId).then(box => box.boxItems));
         setQRCode(await getQRCode(boxId).then(receivedQRCode => receivedQRCode.base64));
     }, [boxId]);
@@ -45,12 +47,18 @@ export default function BoxDisplay() {
         setItemNameToAdd(event.target.value);
     }
 
+    const handleLabelNameChange = event => {
+        setLabelName(event.target.value);
+        editBox(boxId, { labelName: event.target.value });
+    }
+
     const handleEditToggle = () => {
 
         if (!isEditing) {
             setIsEditing(true);
         } else {
             setIsEditing(false);
+
             updateBoxState();
         }
 
@@ -62,12 +70,13 @@ export default function BoxDisplay() {
             setIsAdding(true);
         } else {
             setIsAdding(false);
+
             await addItemToBox(boxId, { itemName: itemNameToAdd });
             await setItemNameToAdd("");
             await updateBoxState();
         }
-    }
 
+    }
 
     return (
         <div>
@@ -77,11 +86,16 @@ export default function BoxDisplay() {
                         <img src={process.env.PUBLIC_URL + "/images/box.png"} alt="..." />
 
                         {!isEditing ?
-                            <h1 id="box-header-text">{boxDetails.labelName}</h1>
+                            <h1 id="box-header-text">{labelName}</h1>
                             :
                             <div className="d-flex align-items-center">
                                 <label className="me-3" htmlFor="boxName"><h2>Name</h2></label>
-                                <input id="boxName" className="form-control" type="text" value={boxDetails.labelName} />
+                                <input
+                                    id="boxName"
+                                    className="form-control"
+                                    type="text" value={labelName}
+                                    onChange={handleLabelNameChange}
+                                />
                             </div>
                         }
 
@@ -146,25 +160,27 @@ export default function BoxDisplay() {
                     <div>
                         {!isAdding ?
                             <button
-                                className="btn btn-outline-dark border-3 mx-auto"
+                                className="btn btn-dark border-3 mx-auto"
                                 onClick={handleAddItemToggle}
                             >
                                 Add Item
                             </button>
                             :
-                            <div>
+                            <form className="input-group w-50 mx-auto">
                                 <input
-                                    type="form-control"
+                                    className="form-control"
+                                    type="text"
                                     value={itemNameToAdd}
                                     onChange={handleItemNameToAddChange}
                                 />
                                 <button
-                                    className="btn btn-outline-dark border-3 mx-auto"
+                                    className="btn btn-dark border-3"
+                                    type="submit"
                                     onClick={handleAddItemToggle}
                                 >
                                     Add Item
                                 </button>
-                            </div>
+                            </form>
 
                         }
 
@@ -179,17 +195,20 @@ export default function BoxDisplay() {
                     <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={() => navigate(-1)}><strong>Go Back</strong></button>
                     {/* <Link className="btn btn-lg btn-dark m-2" id="deleteBtn" to={`/boxDisplay/${boxId}/edit`}><strong>Update Items</strong></Link> */}
                     {!isEditing ?
-                        <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={handleEditToggle}><strong>Update Box</strong></button>
+                        <div>
+                            <ReactToPrint
+                                trigger={() => <button className="btn btn-lg btn-dark m-2" id="deleteBtn"><strong>Print QR Code</strong></button>}
+                                content={() => qrCodeRef.current}
+                            />
+                            <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={handleEditToggle}><strong>Update Box</strong></button>
+                        </div>
                         :
                         <div>
                             <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={handleChangeColor}><strong>Change Color</strong></button>
                             <button className="btn btn-lg btn-success m-2" id="deleteBtn" onClick={handleEditToggle}><strong>Confirm</strong></button>
                         </div>
                     }
-                    <ReactToPrint
-                        trigger={() => <button className="btn btn-lg btn-dark m-2" id="deleteBtn"><strong>Print QR Code</strong></button>}
-                        content={() => qrCodeRef.current}
-                    />
+
                     <button className="btn btn-lg btn-dark m-2" id="deleteBtn" onClick={handleBoxDeletion}><strong>Delete</strong></button>
                 </div>
             </div>

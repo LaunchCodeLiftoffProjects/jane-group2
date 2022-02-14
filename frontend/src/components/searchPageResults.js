@@ -38,11 +38,11 @@ export default function SearchPage() {
                     ?
                     (
                         <div>
-                            <h5 className="nice-font">We found {boxList.length} matches for '{searchTerm}'</h5>
-                            <br />
+                            <h5 className="nice-font mb-5">We found {boxList.length} matches for '{searchTerm}'</h5>
+
                             <div className="box-card-grid-container">
                                 {boxList.map(box => (
-                                    <BoxInGrid box={box} searchTerm={searchTerm}></BoxInGrid>
+                                    <BoxInGrid box={box} searchTerm={searchTerm} key={box.id} />
                                 ))}
                             </div>
                         </div>

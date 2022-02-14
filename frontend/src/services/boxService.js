@@ -61,11 +61,9 @@ export async function createBox(data) {
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                return authService.evaluate(response);
-            });
+            .then(response => response);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
 }
@@ -73,7 +71,7 @@ export async function createBox(data) {
 export async function editBox(boxId, data) {
 
     try {
-        return await fetch(`/api/boxes/${boxId}/edit`, {
+        return await fetch(`/api/boxes/${boxId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,16 +79,15 @@ export async function editBox(boxId, data) {
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                return authService.evaluate(response);
-            });
+            .then(response => response);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 
 }
 
 export async function deleteBox(boxId) {
+
     try {
         return await fetch(`/api/boxes/${boxId}`, {
             method: 'DELETE',
@@ -99,16 +96,15 @@ export async function deleteBox(boxId) {
                 'Authorization': authService.header()
             }
         })
-            .then(response => {
-                console.log('Box deleted!');
-                console.log(response);
-            });
+            .then(response => response);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
+
 }
 
 export async function randomizeBoxColor(boxId) {
+
     try {
         return await fetch(`/api/boxes/${boxId}/randomizeColor`, {
             method: 'POST',
@@ -118,11 +114,12 @@ export async function randomizeBoxColor(boxId) {
             }
         })
             .then(response => {
-                console.log('Box color randomized!');
-                console.log(response);
+                // console.log('Box color randomized!');
+                // console.log(response);
                 return authService.evaluate(response);
             });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
+
 }

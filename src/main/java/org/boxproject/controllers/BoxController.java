@@ -69,8 +69,8 @@ public class BoxController {
         return ResponseEntity.ok(newBox);
     }
 
-    @PostMapping("{boxId}/edit")
-    public ResponseEntity<BoxItem> processCreateItemForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
+    @PostMapping("{boxId}")
+    public ResponseEntity<BoxItem> processAddItemToBoxForm(@PathVariable Long boxId, @RequestBody BoxItemDTO payload) throws Exception {
 
         final Optional<Box> boxToAddItem = boxRepository.findById(boxId);
         final BoxItem newItem = new BoxItem(payload.getItemName());
@@ -81,7 +81,7 @@ public class BoxController {
         return ResponseEntity.ok(newItem);
     }
 
-    @PutMapping("{boxId}/edit")
+    @PutMapping("{boxId}")
     public ResponseEntity<Optional<Box>> processUpdateBoxForm(@PathVariable Long boxId, @RequestBody BoxDTO payload) throws Exception {
 
         final BoxUser boxUser = boxUserService.getBoxUser();
@@ -95,7 +95,7 @@ public class BoxController {
         return ResponseEntity.ok(updateBox);
     }
 
-    @DeleteMapping("/{boxId}")
+    @DeleteMapping("{boxId}")
     public @ResponseBody String processBoxDeletion(@PathVariable Long boxId) throws Exception {
 
         final BoxUser boxUser = boxUserService.getBoxUser();
@@ -112,32 +112,6 @@ public class BoxController {
         }
 
         return "Box Deleted";
-    }
-
-    @PutMapping("{boxItemId}")
-    public ResponseEntity<Optional<BoxItem>> processUpdateBoxItem(@PathVariable Long boxItemId, @RequestBody BoxItemDTO payload) throws Exception {
-
-        Optional<BoxItem> updatedBoxItemName = boxItemRepository.findById(boxItemId)
-                .map(boxItem -> {
-                    boxItem.setItemName(payload.getItemName());
-                    boxItem.setItemQuantity(payload.getItemQuantity());
-                    return boxItemRepository.save(boxItem);
-                });
-
-        return ResponseEntity.ok(updatedBoxItemName);
-    }
-
-    @DeleteMapping("{itemId}")
-    public @ResponseBody String processBoxItemDeletion(@PathVariable Long itemId, @RequestBody BoxItemDTO payload) throws Exception {
-
-        final BoxUser boxUser = boxUserService.getBoxUser();
-        final Optional<BoxItem> boxItemOptional = boxItemRepository.findById(itemId);
-
-        if (boxItemOptional.isPresent() && boxUser.getBoxes().contains(boxItemOptional.get())) {
-            boxItemRepository.deleteById(payload.getItemId());
-        }
-
-        return "Item deleted";
     }
 
     @PostMapping("{boxId}/randomizeColor")
